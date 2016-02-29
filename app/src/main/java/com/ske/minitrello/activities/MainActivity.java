@@ -1,7 +1,8 @@
-package com.ske.minitrello;
+package com.ske.minitrello.activities;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -17,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+
+import com.ske.minitrello.R;
 
 /**
  *  Main page that show list of card lists including the cards inside the lists.
@@ -158,6 +161,23 @@ public class MainActivity extends AppCompatActivity {
                     return "SECTION 3";
             }
             return null;
+        }
+    }
+
+    public class SectionsPagerAdapter2 extends FragmentStatePagerAdapter {
+
+        public SectionsPagerAdapter2(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 0;
         }
     }
 }
