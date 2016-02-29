@@ -1,8 +1,7 @@
 package com.ske.minitrello.models;
 
-import java.io.Serializable;
 
-public class Card implements Serializable {
+public class Card {
 
     private String name;
     private String description;

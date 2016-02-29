@@ -21,7 +21,7 @@ public class CardList {
     /**
      * Create a card list with specify cards.
      * @param name is name of card list
-     * @param cardList
+     * @param cardList is list of cards in the card list
      */
     public CardList(String name, List<Card> cardList) {
         this.name = name;
