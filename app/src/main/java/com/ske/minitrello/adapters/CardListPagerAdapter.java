@@ -7,12 +7,12 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.ske.minitrello.activities.CardListFragment;
 
 
-public class PagerAdapter extends FragmentStatePagerAdapter {
+public class CardListPagerAdapter extends FragmentStatePagerAdapter {
 
 
     private int count;
 
-    public PagerAdapter(FragmentManager fm, int count) {
+    public CardListPagerAdapter(FragmentManager fm, int count) {
         super(fm);
         this.count = count;
     }
