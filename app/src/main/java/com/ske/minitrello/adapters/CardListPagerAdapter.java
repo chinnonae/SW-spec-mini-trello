@@ -9,11 +9,8 @@ import com.ske.minitrello.activities.CardListFragment;
 
 public class CardListPagerAdapter extends FragmentStatePagerAdapter {
 
-    private int count;
-
-    public CardListPagerAdapter(FragmentManager fm, int count) {
+    public CardListPagerAdapter(FragmentManager fm) {
         super(fm);
-        this.count = count;
     }
 
     @Override
@@ -23,6 +20,6 @@ public class CardListPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return count;
+        return 3;
     }
 }

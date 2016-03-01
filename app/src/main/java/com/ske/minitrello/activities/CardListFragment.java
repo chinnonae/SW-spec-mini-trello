@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,14 +77,17 @@ public class CardListFragment extends Fragment {
 
         cards = new ArrayList<Card>();
         cards.add(new Card("Title1", "Description"));
-        cards.add(new Card("Title2", "Description"));
-        cards.add(new Card("Title3", "Description"));
-        cards.add(new Card("Title4", "Description"));
-        cards.add(new Card("Title5", "Description"));
-        cards.add(new Card("Title6", "Description"));
-        cards.add(new Card("Title7", "Description"));
-        cards.add(new Card("Title8", "Description"));
-        cards.add(new Card("Title9", "Description"));
+        if (!mParam1.equals("2")) {
+            cards.add(new Card("Title2", "Description"));
+            cards.add(new Card("Title3", "Description"));
+            cards.add(new Card("Title4", "Description"));
+            cards.add(new Card("Title5", "Description"));
+            cards.add(new Card("Title6", "Description"));
+            cards.add(new Card("Title7", "Description"));
+            cards.add(new Card("Title8", "Description"));
+            cards.add(new Card("Title9", "Description"));
+            }
+
 
         cardAdapter = new CardAdapter(getActivity(),
                 R.layout.card_list_item,
@@ -101,6 +105,7 @@ public class CardListFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
+            Log.i("BPress", "BUtton PResssed");
             mListener.onFragmentInteraction(uri);
         }
     }
