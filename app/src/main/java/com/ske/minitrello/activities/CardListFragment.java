@@ -14,23 +14,15 @@ import android.widget.TextView;
 import com.ske.minitrello.R;
 import com.ske.minitrello.adapters.CardAdapter;
 import com.ske.minitrello.models.Card;
+import com.ske.minitrello.models.CardKeeper;
+import com.ske.minitrello.models.CardList;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CardListFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link CardListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CardListFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
 
+    private CardList cardList;
     private List<Card> cards;
     private CardAdapter cardAdapter;
 
@@ -51,10 +43,10 @@ public class CardListFragment extends Fragment {
      * @return A new instance of fragment CardListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CardListFragment newInstance(String param1) {
+    public static CardListFragment newInstance(int position) {
         CardListFragment fragment = new CardListFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putInt("position", position);
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,10 +54,10 @@ public class CardListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-        }
 
+        int position = getArguments().getInt("position");
+        cardList = CardKeeper.getInstance().getLists().get(position);
+        cards = cardList.getCardList();
 
     }
 
@@ -75,20 +67,6 @@ public class CardListFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_card_list, container, false);
 
-        cards = new ArrayList<Card>();
-        cards.add(new Card("Title1", "Description"));
-        if (!mParam1.equals("2")) {
-            cards.add(new Card("Title2", "Description"));
-            cards.add(new Card("Title3", "Description"));
-            cards.add(new Card("Title4", "Description"));
-            cards.add(new Card("Title5", "Description"));
-            cards.add(new Card("Title6", "Description"));
-            cards.add(new Card("Title7", "Description"));
-            cards.add(new Card("Title8", "Description"));
-            cards.add(new Card("Title9", "Description"));
-            }
-
-
         cardAdapter = new CardAdapter(getActivity(),
                 R.layout.card_list_item,
                 cards);
@@ -97,7 +75,7 @@ public class CardListFragment extends Fragment {
         lv.setAdapter(cardAdapter);
 
         TextView cardListTitle = (TextView) rootView.findViewById(R.id.cardlist_title);
-        cardListTitle.setText("CardList Title " + mParam1);
+        cardListTitle.setText(cardList.getName());
 
         return rootView;
     }

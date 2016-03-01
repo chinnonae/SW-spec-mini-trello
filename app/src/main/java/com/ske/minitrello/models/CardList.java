@@ -1,10 +1,11 @@
 package com.ske.minitrello.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class CardList {
+public class CardList implements Serializable {
 
     private String name;
     private List<Card> cardList;

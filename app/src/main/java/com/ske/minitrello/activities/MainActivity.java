@@ -1,12 +1,9 @@
 package com.ske.minitrello.activities;
 
 import android.net.Uri;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +11,12 @@ import android.view.MenuItem;
 
 import com.ske.minitrello.R;
 import com.ske.minitrello.adapters.CardListPagerAdapter;
+import com.ske.minitrello.models.Card;
+import com.ske.minitrello.models.CardKeeper;
+import com.ske.minitrello.models.CardList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *  Main page that show list of card lists including the cards inside the lists.
@@ -40,31 +43,29 @@ public class MainActivity extends AppCompatActivity implements CardListFragment.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(pagerAdapter);
 
+        List<Card> cards = new ArrayList<Card>();
+        cards.add(new Card("Title1", "Description"));
+        cards.add(new Card("Title2", "Description"));
+        cards.add(new Card("Title3", "Description"));
+        cards.add(new Card("Title4", "Description"));
+        cards.add(new Card("Title5", "Description"));
+        cards.add(new Card("Title6", "Description"));
+        cards.add(new Card("Title7", "Description"));
+        cards.add(new Card("Title8", "Description"));
+        cards.add(new Card("Title9", "Description"));
+
+        CardList cl = new CardList("To-do", cards);
+        CardList cl2 = new CardList("Done", cards);
+        CardList cl3 = new CardList("Doing", cards);
+        CardList cl4 = new CardList("Another list", cards);
+
+        CardKeeper.getInstance().addCardList(cl);
+        CardKeeper.getInstance().addCardList(cl2);
+        CardKeeper.getInstance().addCardList(cl3);
+        CardKeeper.getInstance().addCardList(cl4);
+        pagerAdapter.notifyDataSetChanged();
 
     }
-
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {

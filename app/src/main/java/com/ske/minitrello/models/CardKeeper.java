@@ -30,6 +30,10 @@ public class CardKeeper {
         return instance;
     }
 
+    public int getSize() {
+        return cardLists.size();
+    }
+
     /**
      * Return all the card lists exist.
      * @return all the card lists exist.
