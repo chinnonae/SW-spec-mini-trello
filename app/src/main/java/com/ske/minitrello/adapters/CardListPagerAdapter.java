@@ -9,7 +9,6 @@ import com.ske.minitrello.activities.CardListFragment;
 
 public class CardListPagerAdapter extends FragmentStatePagerAdapter {
 
-
     private int count;
 
     public CardListPagerAdapter(FragmentManager fm, int count) {
@@ -19,7 +18,7 @@ public class CardListPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return new CardListFragment();
+        return CardListFragment.newInstance(position + 1 + "");
     }
 
     @Override

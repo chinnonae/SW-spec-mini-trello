@@ -30,12 +30,13 @@ public class CardAdapter extends ArrayAdapter<Card> {
             v = vi.inflate(R.layout.card_list_item, null);
         }
 
-        //TextView subject = (TextView) v.findViewById(R.id.subject);
-        //TextView body = (TextView) v.findViewById(R.id.body);
+        TextView cardTitle = (TextView) v.findViewById(R.id.card_title);
+        TextView cardDescription = (TextView) v.findViewById(R.id.card_description);
 
         Card card = getItem(position);
-        //subject.setText(note.getSubject());
-        //body.setText(note.getBody());
+
+        cardTitle.setText(card.getName());
+        cardDescription.setText(card.getDescription());
 
         return v;
     }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.ske.minitrello.R;
 import com.ske.minitrello.adapters.CardAdapter;
@@ -28,14 +29,12 @@ public class CardListFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     private List<Card> cards;
     private CardAdapter cardAdapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -48,15 +47,13 @@ public class CardListFragment extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment CardListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CardListFragment newInstance(String param1, String param2) {
+    public static CardListFragment newInstance(String param1) {
         CardListFragment fragment = new CardListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -66,7 +63,6 @@ public class CardListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
 
@@ -79,15 +75,15 @@ public class CardListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_card_list, container, false);
 
         cards = new ArrayList<Card>();
-        cards.add(new Card("Title", "Description"));
-        cards.add(new Card("Title", "Description"));
-        cards.add(new Card("Title", "Description"));
-        cards.add(new Card("Title", "Description"));
-        cards.add(new Card("Title", "Description"));
-        cards.add(new Card("Title", "Description"));
-        cards.add(new Card("Title", "Description"));
-        cards.add(new Card("Title", "Description"));
-        cards.add(new Card("Title", "Description"));
+        cards.add(new Card("Title1", "Description"));
+        cards.add(new Card("Title2", "Description"));
+        cards.add(new Card("Title3", "Description"));
+        cards.add(new Card("Title4", "Description"));
+        cards.add(new Card("Title5", "Description"));
+        cards.add(new Card("Title6", "Description"));
+        cards.add(new Card("Title7", "Description"));
+        cards.add(new Card("Title8", "Description"));
+        cards.add(new Card("Title9", "Description"));
 
         cardAdapter = new CardAdapter(getActivity(),
                 R.layout.card_list_item,
@@ -95,6 +91,9 @@ public class CardListFragment extends Fragment {
 
         ListView lv = (ListView) rootView.findViewById(R.id.card_listView);
         lv.setAdapter(cardAdapter);
+
+        TextView cardListTitle = (TextView) rootView.findViewById(R.id.cardlist_title);
+        cardListTitle.setText("CardList Title " + mParam1);
 
         return rootView;
     }
