@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -34,11 +33,14 @@ public class AddCardDialog extends Observable {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Card newCard = new Card(cardTitle.getText().toString(), cardDesc.getText().toString());
                 CardList cardList = CardKeeper.getInstance().getLists().get(cardListPosition);
                 cardList.addCard(newCard);
+
                 setChanged();
                 notifyObservers();
+
                 dialog.dismiss();
             }
         });

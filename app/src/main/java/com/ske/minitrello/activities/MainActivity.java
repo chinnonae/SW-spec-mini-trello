@@ -25,7 +25,6 @@ import java.util.Observer;
 
 public class MainActivity extends AppCompatActivity implements Observer {
 
-
     private CardListPagerAdapter pagerAdapter;
     private ViewPager mViewPager;
 
@@ -42,8 +41,11 @@ public class MainActivity extends AppCompatActivity implements Observer {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(pagerAdapter);
 
+        createTest();
 
+    }
 
+    public void createTest() {
         List<Card> cards = new ArrayList<Card>();
         cards.add(new Card("Title1", "Description"));
         cards.add(new Card("Title2", "Description"));
@@ -72,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
         addCardList(cl2);
         addCardList(cl3);
         addCardList(cl4);
-
     }
 
     public void addCardList(CardList cardList) {
@@ -83,23 +84,18 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_addlist) {
-            AddCardListDialog acld = new AddCardListDialog();
-            acld.addObserver(MainActivity.this);
-            acld.showDialog(MainActivity.this);
+            AddCardListDialog cardAddDialog = new AddCardListDialog();
+            cardAddDialog.addObserver(MainActivity.this);
+            cardAddDialog.showDialog(MainActivity.this);
             return true;
         }
 
@@ -109,6 +105,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
     @Override
     public void update(Observable observable, Object data) {
         pagerAdapter.notifyDataSetChanged();
-        mViewPager.setCurrentItem(pagerAdapter.getCount()-1);
+        mViewPager.setCurrentItem(pagerAdapter.getCount() - 1);
     }
 }

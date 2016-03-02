@@ -4,16 +4,13 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ske.minitrello.R;
-import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.CardKeeper;
 import com.ske.minitrello.models.CardList;
 
-import org.w3c.dom.Text;
 
 import java.util.Observable;
 
@@ -35,10 +32,13 @@ public class AddCardListDialog extends Observable {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 CardList newList = new CardList(listTitle.getText().toString());
                 CardKeeper.getInstance().addCardList(newList);
+
                 setChanged();
                 notifyObservers();
+
                 dialog.dismiss();
             }
         });

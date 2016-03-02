@@ -60,17 +60,19 @@ public class CardListFragment extends Fragment implements Observer {
                 R.layout.card_list_item,
                 cards);
 
-        ListView lv = (ListView) rootView.findViewById(R.id.card_listView);
+        ListView lv = (ListView)rootView.findViewById(R.id.card_listView);
+        ImageView addButton = (ImageView)rootView.findViewById(R.id.add_button);
+        TextView cardListTitle = (TextView)rootView.findViewById(R.id.cardlist_title);
+
         lv.setAdapter(cardAdapter);
-        ImageView add_button = (ImageView)rootView.findViewById(R.id.add_button);
-        TextView cardListTitle = (TextView) rootView.findViewById(R.id.cardlist_title);
         cardListTitle.setText(cardList.getName());
 
-        add_button.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddCardDialog acd = new AddCardDialog();
                 int position = getArguments().getInt("position");
+                AddCardDialog acd = new AddCardDialog();
+
                 acd.addObserver(CardListFragment.this);
                 acd.showDialog(getActivity(), position);
             }
