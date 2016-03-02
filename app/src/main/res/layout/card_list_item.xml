@@ -10,12 +10,13 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         card_view:cardElevation="3dp"
-        card_view:cardCornerRadius="4dp">
+        card_view:cardCornerRadius="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="#8ce0e0e0">
 
             <TextView
                 android:id="@+id/card_title"
@@ -27,7 +28,8 @@
                 android:id="@+id/card_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"/>
+                android:layout_margin="10dp"
+                android:textSize="10sp"/>
 
         </LinearLayout>
 

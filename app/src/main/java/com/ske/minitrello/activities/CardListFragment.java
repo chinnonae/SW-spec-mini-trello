@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,36 +19,25 @@ import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.CardKeeper;
 import com.ske.minitrello.models.CardList;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-public class CardListFragment extends Fragment {
+public class CardListFragment extends Fragment implements Observer {
 
     private CardList cardList;
     private List<Card> cards;
     private CardAdapter cardAdapter;
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-
+    private int position;
     private OnFragmentInteractionListener mListener;
 
     public CardListFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @return A new instance of fragment CardListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static CardListFragment newInstance(int position) {
-        CardListFragment fragment = new CardListFragment();
         Bundle args = new Bundle();
         args.putInt("position", position);
+        CardListFragment fragment = new CardListFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,7 +48,7 @@ public class CardListFragment extends Fragment {
 
         int position = getArguments().getInt("position");
         cardList = CardKeeper.getInstance().getLists().get(position);
-        cards = cardList.getCardList();
+        cards = cardList.getCards();
 
     }
 
@@ -73,9 +64,19 @@ public class CardListFragment extends Fragment {
 
         ListView lv = (ListView) rootView.findViewById(R.id.card_listView);
         lv.setAdapter(cardAdapter);
-
+        ImageView add_button = (ImageView)rootView.findViewById(R.id.add_button);
         TextView cardListTitle = (TextView) rootView.findViewById(R.id.cardlist_title);
         cardListTitle.setText(cardList.getName());
+
+        add_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddCardDialog acd = new AddCardDialog();
+                int position = getArguments().getInt("position");
+                acd.addObserver(CardListFragment.this);
+                acd.showDialog(getActivity(), position);
+            }
+        });
 
         return rootView;
     }
@@ -83,7 +84,6 @@ public class CardListFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            Log.i("BPress", "BUtton PResssed");
             mListener.onFragmentInteraction(uri);
         }
     }
@@ -103,6 +103,11 @@ public class CardListFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void update(Observable observable, Object data) {
+        cardAdapter.notifyDataSetChanged();
     }
 
     /**

@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CardList implements Serializable {
+public class CardList {
 
     private String name;
-    private List<Card> cardList;
+    private List<Card> cards;
 
     /**
      * Create an empty card list.
@@ -16,28 +16,28 @@ public class CardList implements Serializable {
      */
     public CardList(String name) {
         this.name = name;
-        cardList = new ArrayList<Card>();
+        cards = new ArrayList<Card>();
     }
 
     /**
      * Create a card list with specify cards.
      * @param name is name of card list
-     * @param cardList is list of cards in the card list
+     * @param cards is list of cards in the card list
      */
-    public CardList(String name, List<Card> cardList) {
+    public CardList(String name, List<Card> cards) {
         this.name = name;
-        this.cardList = cardList;
+        this.cards = cards;
     }
 
     public void addCard(Card card) {
-        cardList.add(card);
+        cards.add(card);
     }
 
     public String getName() {
         return name;
     }
 
-    public List<Card> getCardList() {
-        return cardList;
+    public List<Card> getCards() {
+        return cards;
     }
 }

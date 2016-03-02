@@ -3,8 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activities.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_addlist"
+        android:icon="@drawable/add_list"
+        android:title="Something"
+        app:showAsAction="always"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        />
 </menu>

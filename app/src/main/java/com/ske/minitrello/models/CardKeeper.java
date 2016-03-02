@@ -26,7 +26,7 @@ public class CardKeeper {
      * @return an instance of CardKeeper.
      */
     public static CardKeeper getInstance(){
-        if(instance==null) instance = new CardKeeper();
+        if (instance == null) instance = new CardKeeper();
         return instance;
     }
 
