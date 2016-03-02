@@ -45,16 +45,24 @@
 
             </RelativeLayout>
 
-            <ListView
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/card_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/card_listView"
-                android:divider="@null"
-                android:dividerHeight="0dp"
-                android:scrollbars="none"
-                android:transcriptMode="alwaysScroll"
-                android:layout_below="@+id/relativeLayout"
-                android:layout_alignParentStart="true" />
+                android:layout_below="@+id/relativeLayout">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <!--<ListView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/card_listView"-->
+                <!--android:divider="@null"-->
+                <!--android:dividerHeight="0dp"-->
+                <!--android:scrollbars="none"-->
+                <!--android:transcriptMode="alwaysScroll"-->
+                <!--android:layout_below="@+id/relativeLayout"-->
+                <!--android:layout_alignParentStart="true" />-->
 
 
         </RelativeLayout>
