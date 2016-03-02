@@ -1,12 +1,9 @@
 package com.ske.minitrello.activities;
 
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -26,7 +23,7 @@ import java.util.Observer;
  *  Main page that show list of card lists including the cards inside the lists.
  */
 
-public class MainActivity extends AppCompatActivity implements CardListFragment.OnFragmentInteractionListener, Observer {
+public class MainActivity extends AppCompatActivity implements Observer {
 
 
     private CardListPagerAdapter pagerAdapter;
@@ -36,10 +33,9 @@ public class MainActivity extends AppCompatActivity implements CardListFragment.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+
+        CardKeeper ck = CardKeeper.getInstance(this);
+
         pagerAdapter = new CardListPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
@@ -108,10 +104,6 @@ public class MainActivity extends AppCompatActivity implements CardListFragment.
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
     }
 
     @Override
