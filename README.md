@@ -15,8 +15,7 @@
 11. Delete a comment
 12. More features
 
-[Iteration I Use cases and SSD](https://docs.google.com/document/d/1qrCLtmChAyLtGIhDpbVRUgp1Y_KGdQ8vIrrrB4UaicY/edit?usp=sharing)
+[Iteration I Use cases ,SSD and domain model](https://docs.google.com/document/d/1qrCLtmChAyLtGIhDpbVRUgp1Y_KGdQ8vIrrrB4UaicY/edit?usp=sharing)
 
-[Domain model](https://docs.google.com/document/d/126b9ZQJTjqYvYCEezQQ4qk7x6gr1BCeVoixYzipiWWw/edit)
 
 [Trello Board](https://trello.com/b/kBGDVxGM/mini-trello)
