@@ -15,6 +15,8 @@
 11. Delete a comment
 12. More features
 
-Documentation : [Iteration I Use cases](https://docs.google.com/document/d/1qrCLtmChAyLtGIhDpbVRUgp1Y_KGdQ8vIrrrB4UaicY/edit?usp=sharing)[Domain model]()
+[Iteration I Use cases and SSD](https://docs.google.com/document/d/1qrCLtmChAyLtGIhDpbVRUgp1Y_KGdQ8vIrrrB4UaicY/edit?usp=sharing)
 
-Trello : [Board](https://trello.com/b/kBGDVxGM/mini-trello)
+[Domain model](https://docs.google.com/document/d/126b9ZQJTjqYvYCEezQQ4qk7x6gr1BCeVoixYzipiWWw/edit?ts=56d7d47a)
+
+[Trello Board](https://trello.com/b/kBGDVxGM/mini-trello)
