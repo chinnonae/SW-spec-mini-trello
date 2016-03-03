@@ -2,10 +2,10 @@
 
 #### Ideas/Requirements
  
-1. Create an empty card list with a name
-2. Create a card inside each list with title and description 
+1. ~~Create an empty card list with a name~~
+2. ~~Create a card inside each list with title and description~~
 3. Add a comment to each card
-4. View all lists with cards inside in one screen
+4. ~~View all lists with cards inside in one screen~~
 5. View individual card in details
 6. Rename a card list
 7. Rename a card title
