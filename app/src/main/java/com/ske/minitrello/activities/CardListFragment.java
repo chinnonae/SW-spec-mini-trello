@@ -43,9 +43,6 @@ public class CardListFragment extends Fragment implements Observer {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-
         int position = getArguments().getInt("position");
         cardList = CardKeeper.getInstance().getLists().get(position);
         cards = cardList.getCards();
