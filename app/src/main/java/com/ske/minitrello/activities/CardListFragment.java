@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +15,12 @@ import android.widget.TextView;
 
 import com.ske.minitrello.R;
 import com.ske.minitrello.adapters.CardAdapter;
+import com.ske.minitrello.adapters.CardItemClickListener;
 import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.CardKeeper;
 import com.ske.minitrello.models.CardList;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -46,7 +50,6 @@ public class CardListFragment extends Fragment implements Observer {
         int position = getArguments().getInt("position");
         cardList = CardKeeper.getInstance().getLists().get(position);
         cards = cardList.getCards();
-
     }
 
     @Override
@@ -57,7 +60,13 @@ public class CardListFragment extends Fragment implements Observer {
 
         recyclerView = (RecyclerView)rootView.findViewById(R.id.card_recyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        cardAdapter = new CardAdapter(cards);
+
+        cardAdapter = new CardAdapter(cards, new CardItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                Log.e("Tag", cards.get(position).toString());
+            }
+        });
 
         recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);
