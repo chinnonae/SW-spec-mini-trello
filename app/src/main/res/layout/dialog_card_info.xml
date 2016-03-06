@@ -29,7 +29,7 @@
         android:background="@color/colorPrimary">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="Title"
             android:id="@+id/card_dialog_title"
@@ -46,8 +46,8 @@
             android:padding="10dp"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="20dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"/>
 
     </RelativeLayout>
 
@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/card_dialog_title"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
             android:id="@+id/textView2"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:paddingLeft="20dp" />
 
         <ImageView
@@ -92,7 +92,7 @@
             android:layout_alignParentStart="true"
             android:padding="10dp"
             android:layout_marginLeft="20dp"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
 
     </RelativeLayout>
 
@@ -107,13 +107,13 @@
             android:id="@+id/comment_label"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:paddingLeft="20dp" />
 
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:id="@+id/imageView2"
+            android:id="@+id/add_comment_button"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:src="@drawable/add_grey"
@@ -129,6 +129,7 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/comment_recycler_view"
             android:layout_below="@+id/comment_label"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp">

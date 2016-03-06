@@ -13,6 +13,7 @@ import com.ske.minitrello.adapters.CardListPagerAdapter;
 import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.CardKeeper;
 import com.ske.minitrello.models.CardList;
+import com.ske.minitrello.models.Comment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +47,11 @@ public class MainActivity extends AppCompatActivity implements Observer {
     }
 
     public void createTest() {
+        List<Comment> comments = new ArrayList<>();
+        comments.add(new Comment("hello"));
+
         List<Card> cards = new ArrayList<Card>();
-        cards.add(new Card("Title1", "Description"));
+        cards.add(new Card("Title1", "Description", comments));
         cards.add(new Card("Title2", "Description"));
         cards.add(new Card("Title3", "Description"));
         cards.add(new Card("Title4", "Description"));

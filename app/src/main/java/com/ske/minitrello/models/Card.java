@@ -1,6 +1,7 @@
 package com.ske.minitrello.models;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Card {
@@ -12,11 +13,13 @@ public class Card {
     public Card(String name) {
         this.name = name;
         description = "";
+        comments = new ArrayList<Comment>();
     }
 
     public Card(String name, String description) {
         this.name = name;
         this.description = description;
+        comments = new ArrayList<Comment>();
     }
 
     public Card(String name, String description, List<Comment> comments) {
@@ -30,6 +33,10 @@ public class Card {
 
     public String getDescription() {
         return description;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
     }
 
     public void addComment(Comment comment) {
