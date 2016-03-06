@@ -2,18 +2,14 @@ package com.ske.minitrello.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ske.minitrello.R;
 import com.ske.minitrello.models.Card;
-import com.ske.minitrello.models.CardKeeper;
-import com.ske.minitrello.models.CardList;
 
 import java.util.Observable;
 
@@ -42,7 +38,7 @@ public class CardInfoDialog extends Observable {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
         dialog.setCancelable(false);
-        dialog.setContentView(R.layout.card_info_dialog);
+        dialog.setContentView(R.layout.dialog_card_info);
 
         cardTitle = (TextView) dialog.findViewById(R.id.card_dialog_title);
         cardDescription = (TextView) dialog.findViewById(R.id.card_dialog_description);

@@ -27,12 +27,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView cardTitle;
-        TextView cardDescription;
+        //TextView cardDescription;
 
         public ViewHolder(View v) {
             super(v);
             cardTitle = (TextView)v.findViewById(R.id.card_title);
-            cardDescription = (TextView)v.findViewById(R.id.card_description);
+            //cardDescription = (TextView)v.findViewById(R.id.card_description);
         }
 
     }
@@ -59,7 +59,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.cardTitle.setText(cards.get(position).getName());
-        holder.cardDescription.setText(cards.get(position).getDescription());
+        //holder.cardDescription.setText(cards.get(position).getDescription());
     }
 
     @Override

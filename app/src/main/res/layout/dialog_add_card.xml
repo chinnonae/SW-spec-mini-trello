@@ -84,7 +84,8 @@
             android:gravity="center_vertical|center_horizontal"
             android:textColor="@color/colorPrimary"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="20dp" />
+            android:layout_marginRight="20dp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"

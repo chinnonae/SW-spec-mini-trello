@@ -24,7 +24,7 @@ public class AddCardDialog extends Observable {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
         dialog.setCancelable(false);
-        dialog.setContentView(R.layout.add_card_dialog);
+        dialog.setContentView(R.layout.dialog_add_card);
 
         cardTitle = (EditText) dialog.findViewById(R.id.card_title_input);
         cardDesc = (EditText) dialog.findViewById(R.id.card_desc_input);
