@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,6 @@ import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.CardKeeper;
 import com.ske.minitrello.models.CardList;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -64,6 +62,8 @@ public class CardListFragment extends Fragment implements Observer {
         cardAdapter = new CardAdapter(cards, new CardItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
+                CardInfoDialog dialog = new CardInfoDialog(cards.get(position));
+                dialog.showDialog(getActivity());
                 Log.e("Tag", cards.get(position).toString());
             }
         });

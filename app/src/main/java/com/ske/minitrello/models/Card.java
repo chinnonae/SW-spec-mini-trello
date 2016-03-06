@@ -36,6 +36,18 @@ public class Card {
         comments.add(comment);
     }
 
+    public void deleteComment(Comment comment) {
+        comments.remove(comment);
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "Card name: " + name + "\nDescription: " + description + "\n";

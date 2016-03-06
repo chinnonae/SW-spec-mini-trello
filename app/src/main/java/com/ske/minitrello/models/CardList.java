@@ -16,6 +16,7 @@ public class CardList {
     public CardList(String name) {
         this.name = name;
         cards = new ArrayList<Card>();
+
     }
 
     /**
@@ -26,6 +27,10 @@ public class CardList {
     public CardList(String name, List<Card> cards) {
         this.name = name;
         this.cards = cards;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void addCard(Card card) {

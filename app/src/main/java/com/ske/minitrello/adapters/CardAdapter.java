@@ -56,7 +56,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         return vh;
     }
 
-
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.cardTitle.setText(cards.get(position).getName());
