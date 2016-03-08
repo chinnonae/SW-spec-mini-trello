@@ -1,7 +1,8 @@
-package com.ske.minitrello.activities;
+package com.ske.minitrello.dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,12 +27,15 @@ import java.util.Observable;
 
 public class CardInfoDialog extends Observable {
 
-    TextView cardTitle;
+    EditText cardTitle;
     TextView cardDescription;
     ImageView editTitleBtn;
     ImageView editDescBtn;
     ImageView addCommentBtn;
     ImageView closeBtn;
+
+    boolean isEditingTitle = false;
+    boolean isEditingDescription = false;
 
     RecyclerView recyclerView;
     CommentAdapter commentAdapter;
@@ -67,8 +72,21 @@ public class CardInfoDialog extends Observable {
         recyclerView.setAdapter(commentAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        cardTitle = (TextView) dialog.findViewById(R.id.card_dialog_title);
+        cardTitle = (EditText) dialog.findViewById(R.id.card_dialog_title);
         cardDescription = (TextView) dialog.findViewById(R.id.card_dialog_description);
+        editTitleBtn = (ImageView) dialog.findViewById(R.id.renameButton);
+
+        cardTitle.setFocusableInTouchMode(false);
+        cardTitle.setFocusable(false);
+        cardTitle.setCursorVisible(false);
+        cardTitle.setBackgroundColor(Color.TRANSPARENT);
+
+        cardTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editCardName();
+            }
+        });
 
         closeBtn = (ImageView) dialog.findViewById(R.id.closeButton);
         closeBtn.setOnClickListener(new View.OnClickListener() {
@@ -93,5 +111,24 @@ public class CardInfoDialog extends Observable {
 
         dialog.show();
 
+    }
+
+    private void editCardName() {
+        if (!isEditingTitle) {
+            editTitleBtn.setImageResource(R.drawable.correct);
+            cardTitle.setFocusableInTouchMode(true);
+            cardTitle.setFocusable(true);
+            cardTitle.setCursorVisible(true);
+            cardTitle.requestFocus();
+            isEditingTitle = true;
+        }
+        else {
+            editTitleBtn.setImageResource(R.drawable.edit_black);
+            cardTitle.setFocusableInTouchMode(false);
+            cardTitle.setFocusable(false);
+            cardTitle.setCursorVisible(false);
+            card.setName(cardTitle.getText().toString());
+            isEditingTitle = false;
+        }
     }
 }

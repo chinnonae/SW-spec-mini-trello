@@ -1,4 +1,4 @@
-package com.ske.minitrello.activities;
+package com.ske.minitrello.dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;

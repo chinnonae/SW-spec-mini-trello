@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.ske.minitrello.R;
 
 import com.ske.minitrello.adapters.CardListPagerAdapter;
+import com.ske.minitrello.dialogs.AddCardListDialog;
 import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.CardKeeper;
 import com.ske.minitrello.models.CardList;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(pagerAdapter);
+
 
         createTest();
 
