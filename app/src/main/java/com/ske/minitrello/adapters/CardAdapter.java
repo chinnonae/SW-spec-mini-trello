@@ -1,6 +1,7 @@
 package com.ske.minitrello.adapters;
 
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,8 +17,7 @@ import java.util.List;
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     private List<Card> cards;
-
-    CardItemClickListener listener;
+    static CardItemClickListener listener;
 
     public CardAdapter(List<Card> cards, CardItemClickListener listener) {
         this.cards = cards;
@@ -27,12 +27,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView cardTitle;
-        //TextView cardDescription;
 
         public ViewHolder(View v) {
             super(v);
             cardTitle = (TextView)v.findViewById(R.id.card_title);
-            //cardDescription = (TextView)v.findViewById(R.id.card_description);
         }
 
     }
@@ -47,11 +45,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
         v.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                listener.onItemClick(v, vh.getAdapterPosition());
+            public void onClick(View v) {listener.onItemClick(v, cards.get(vh.getAdapterPosition()));
             }
         });
-
 
         return vh;
     }
@@ -59,7 +55,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.cardTitle.setText(cards.get(position).getName());
-        //holder.cardDescription.setText(cards.get(position).getDescription());
     }
 
     @Override

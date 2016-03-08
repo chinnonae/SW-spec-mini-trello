@@ -1,5 +1,6 @@
 package com.ske.minitrello.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.view.ViewPager;
@@ -28,10 +29,11 @@ import java.util.Observer;
 public class MainActivity extends AppCompatActivity implements Observer {
 
     private CardListPagerAdapter pagerAdapter;
-    private ViewPager mViewPager;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -40,8 +42,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
         pagerAdapter = new CardListPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(pagerAdapter);
+        viewPager = (ViewPager) findViewById(R.id.container);
+        viewPager.setAdapter(pagerAdapter);
 
 
 
@@ -70,10 +72,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         List<Card> cards3 = new ArrayList<Card>();
         cards3.addAll(cards);
 
-
-
         CardList cl = new CardList("To-do", cards);
-
         CardList cl2 = new CardList("Done");
         CardList cl3 = new CardList("Doing", cards2);
         CardList cl4 = new CardList("Another list", cards3);
@@ -113,6 +112,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
     @Override
     public void update(Observable observable, Object data) {
         pagerAdapter.notifyDataSetChanged();
-        mViewPager.setCurrentItem(pagerAdapter.getCount() - 1);
+        viewPager.setCurrentItem(pagerAdapter.getCount() - 1);
     }
 }
