@@ -27,7 +27,14 @@ public class CardKeeper {
     private DefaultDatabaseErrorHandler dbHandler;
     /** Database */
     private SQLiteDatabase db;
-
+    /** New card id. */
+    private static int cardId = 1000000;
+    /** SharedPreference. */
+    private SharedPreferences sharedPref;
+    /** SharedPreference editor. */
+    private SharedPreferences.Editor prefEditor;
+    
+    
     /**
      * Constructor.
      */
@@ -36,18 +43,32 @@ public class CardKeeper {
         dbHandler = new DefaultDatabaseErrorHandler();
         helper = new DBHelper(context, dbHandler);
         db = helper.getWritableDatabase();
+        
+        sharedPref = context.getSharedPreferences("card_id", Context.MODE_PRIVATE);
+        prefEditor = sharedPref.edit();
+        if(sharedPref.getInt("currentID", -1) == -1) {
+            prefEditor.putInt("currentID", cardId);
+            prefEditor.commit();
+        }
+        else
+            cardId = sharedPref.getInt("currentID", -1);
     }
 
     /**
      * Return an instance of CardKeeper.
      * @return an instance of CardKeeper.
      */
-    public static CardKeeper getInstance() {
+    public static CardKeeper getInstance(Context context){
+        if(instance==null) instance = new CardKeeper(context);
         return instance;
     }
 
-    public static CardKeeper getInstance(Context context) {
-        if (instance == null) instance = new CardKeeper(context);
+    /**
+     * Return an instance of CardKeeper. (This can be invoke only after getInstance(Context) is invoked).
+     * Otherwise, this will return null value.
+     * @return an instance of CardKeeper, or null if getInstance(Context) hasn't been invoked.
+     */
+    public static CardKeeper getInstance(){
         return instance;
     }
 
@@ -69,6 +90,7 @@ public class CardKeeper {
      */
     public void addCardList(CardList cardList){
         cardLists.add(cardList);
+        insertCardList(cardList);
     }
 
     /**
@@ -77,10 +99,12 @@ public class CardKeeper {
      * @param cardList a list that will hold the card.
      */
     public void addCardToCardList(Card card, CardList cardList){
-        //TODO: implement this
+	    cardList.addCard(card);
+        insertNewCard(card, cardList);
     }
 
 
+    //insert to database
     private void insertCardList(CardList cardList){
         String name = cardList.getName();
         int index = -1;
@@ -88,11 +112,25 @@ public class CardKeeper {
         val.put("_name", name);
         val.put("index", index);
         db.insert("CARD_LIST", null, val);
-        Log.d("CardKeeper", "InsertCardList: "+"{ name: " + name + ", index: " + index + " }");
+        Log.d("CardKeeper", "InsertCardList: " + "{ name: " + name + ", index: " + index + " }");
+        cardLists.add(cardList);
     }
 
     private void insertNewCard(Card card, CardList cardList){
-
+        String title = card.getName();
+        String parent_list = cardList.getName();
+        int index = -1;
+        String description = card.getDescription();
+        ContentValues val = new ContentValues(5);
+        val.put("_id", cardId);
+        val.put("title", title);
+        val.put("parent_list", parent_list);
+        val.put("card_index", index);
+        val.put("description", description);
+        db.insert("CARD", null, val);
+        Log.d("CardKeeper", String.format("InsertCard: { title: %s, id: %d, parent_list: %s, card_index: %d, description: %s }", title, cardId, parent_list, index, description));
+        prefEditor.putInt("currentID", ++cardId);
+        prefEditor.commit();
     }
 
     //TODO: implement this method.
