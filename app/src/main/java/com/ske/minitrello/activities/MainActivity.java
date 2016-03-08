@@ -44,9 +44,11 @@ public class MainActivity extends AppCompatActivity implements Observer {
         mViewPager.setAdapter(pagerAdapter);
 
 
-        createTest();
+
 
     }
+
+
 
     public void createTest() {
         List<Comment> comments = new ArrayList<>();

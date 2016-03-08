@@ -13,7 +13,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
 
     public DBHelper(Context context, DatabaseErrorHandler dbErrorHandler) {
-        super(context, "mini-trello-db", null, 1, dbErrorHandler);
+        super(context, "mini-trello-db", null, 2, dbErrorHandler);
     }
 
     @Override
@@ -38,12 +38,14 @@ public class DBHelper extends SQLiteOpenHelper{
                         "date_created int not null," +
                         "detail text not null," +
                         "PRIMARY KEY(card_id, date_created)" +
+                        "FOREIGN KEY(card_id) REFERENCES CARD(_id)" +
                         ");"
         );
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS COMMENT");
+        onCreate(db);
     }
 }

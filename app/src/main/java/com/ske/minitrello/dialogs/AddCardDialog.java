@@ -37,7 +37,7 @@ public class AddCardDialog extends Observable {
 
                 Card newCard = new Card(cardTitle.getText().toString(), cardDesc.getText().toString());
                 CardList cardList = CardKeeper.getInstance().getLists().get(cardListPosition);
-                cardList.addCard(newCard);
+                CardKeeper.getInstance().addCardToCardList(newCard, cardList);
 
                 setChanged();
                 notifyObservers();

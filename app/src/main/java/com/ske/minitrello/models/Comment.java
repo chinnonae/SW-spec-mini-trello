@@ -16,9 +16,16 @@ public class Comment {
         createdTime = System.currentTimeMillis();
     }
 
+    public Comment(String content, long createdTime){
+        this.content = content;
+        this.createdTime = createdTime;
+    }
+
     public String getContent() {
         return content;
     }
+
+    public long getLongCreatedTime(){ return createdTime; }
 
     public String getCreatedTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");

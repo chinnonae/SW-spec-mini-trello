@@ -6,9 +6,11 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.DefaultDatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.ComposePathEffect;
 import android.util.Log;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,6 +59,7 @@ public class CardKeeper {
         }
         else
             cardId = sharedPref.getInt("currentID", -1);
+        loadData();
     }
 
     /**
@@ -108,6 +111,16 @@ public class CardKeeper {
         insertNewCard(card, cardList);
     }
 
+    /**
+     * Add comment to a card.
+     * @param comment a comment to be added to a card.
+     * @param card a card that is commented.
+     */
+    public void addCommentToCard(Comment comment, Card card){
+        card.addComment(comment);
+        insertComment(comment, card);
+    }
+
 
     //insert to database
     private void insertCardList(CardList cardList){
@@ -115,7 +128,7 @@ public class CardKeeper {
         int index = -1;
         ContentValues val = new ContentValues(2);
         val.put("_name", name);
-        val.put("index", index);
+        val.put("list_index", index);
         db.insert("CARD_LIST", null, val);
         Log.d("CardKeeper", "InsertCardList: " + "{ name: " + name + ", index: " + index + " }");
         cardLists.add(cardList);
@@ -139,8 +152,17 @@ public class CardKeeper {
         prefEditor.commit();
     }
 
-    //TODO: implement this method.
-    private void addCommentToCard(){
+
+    private void insertComment(Comment comment, Card card){
+        long createdTime = comment.getLongCreatedTime();
+        String detail = comment.getContent();
+        int id = card.getId();
+        ContentValues val = new ContentValues(3);
+        val.put("card_id", id);
+        val.put("date_created", createdTime);
+        val.put("detail", detail);
+        db.insert("COMMENT", null, val);
+        Log.d("CardKeeper", String.format("InsertComment: { card_id: %d, date_created: %s, detail: %s", id, comment.getCreatedTime(), comment.getContent()));
 
     }
 
@@ -166,6 +188,7 @@ public class CardKeeper {
         }
         do {
             cursor.moveToNext();
+            if(cursor.isAfterLast()) break;
             String name;
             int index;
             name = cursor.getString(cursor.getColumnIndex("_name"));
@@ -178,14 +201,16 @@ public class CardKeeper {
     }
 
     private void loadCards(){
-        String[] col = {"_id", "title", "parent_list", "index", "description"};
+        String[] col = {"_id", "title", "parent_list", "card_index", "description"};
         Cursor cursor = db.query("CARD", col, null, null, null, null, null);
         Log.d("CardKeeper", "LoadCards-> " + "Cursor Column Count: " + cursor.getColumnCount());
         for(String s : cursor.getColumnNames()){
             Log.d("CardKeeper", "LoadCards-> " + "Column names: " + s);
         }
+
         do {
             cursor.moveToNext();
+            if(cursor.isAfterLast()) break;
             int id, index;
             String title, parent_list, description;
             id = cursor.getInt(cursor.getColumnIndex("_id"));
@@ -199,6 +224,8 @@ public class CardKeeper {
         }while(!cursor.isLast());
     }
 
+    private void loadComments(){
+    }
 
     // TODO: implement delete a card list
     // TODO: rearrange index?
