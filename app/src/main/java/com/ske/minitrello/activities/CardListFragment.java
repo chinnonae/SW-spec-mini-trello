@@ -1,5 +1,7 @@
 package com.ske.minitrello.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -15,7 +17,6 @@ import com.ske.minitrello.R;
 import com.ske.minitrello.adapters.CardAdapter;
 import com.ske.minitrello.adapters.CardItemClickListener;
 import com.ske.minitrello.dialogs.AddCardDialog;
-import com.ske.minitrello.dialogs.CardInfoDialog;
 import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.CardKeeper;
 import com.ske.minitrello.models.CardList;
@@ -30,6 +31,7 @@ public class CardListFragment extends Fragment implements Observer {
     private List<Card> cards;
     private CardAdapter cardAdapter;
     private RecyclerView recyclerView;
+    Context context;
 
     public CardListFragment() {
     }
@@ -49,6 +51,7 @@ public class CardListFragment extends Fragment implements Observer {
         int position = getArguments().getInt("position");
         cardList = CardKeeper.getInstance().getLists().get(position);
         cards = cardList.getCards();
+
     }
 
     @Override
@@ -60,13 +63,17 @@ public class CardListFragment extends Fragment implements Observer {
         recyclerView = (RecyclerView)rootView.findViewById(R.id.card_recyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
 
+        context = getContext();
+
         cardAdapter = new CardAdapter(cards, new CardItemClickListener() {
             @Override
-            public void onItemClick(View v, int position) {
-                CardInfoDialog dialog = new CardInfoDialog(cards.get(position));
-                dialog.showDialog(getActivity());
+            public void onItemClick(View v, Card card) {
+                Intent intent = new Intent(context, ShowCardInfoActivity.class);
+                intent.putExtra("card", card);
+                startActivity(intent);
             }
         });
+
 
         recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);

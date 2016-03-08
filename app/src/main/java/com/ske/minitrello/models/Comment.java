@@ -3,10 +3,11 @@ package com.ske.minitrello.models;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Comment {
+public class Comment implements Serializable {
 
     private String content;
     private final long createdTime;
