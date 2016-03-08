@@ -39,6 +39,7 @@ public class CardKeeper {
     /** SharedPreference editor. */
     private SharedPreferences.Editor prefEditor;
     private Map<String, CardList> cardListMap;
+    private Map<Integer, Card> cardMap;
     
     
     /**
@@ -47,6 +48,7 @@ public class CardKeeper {
     private CardKeeper(Context context) {
         cardLists = new ArrayList<CardList>();
         cardListMap = new HashMap<String, CardList>();
+        cardMap = new HashMap<Integer, Card>();
         dbHandler = new DefaultDatabaseErrorHandler();
         helper = new DBHelper(context, dbHandler);
         db = helper.getWritableDatabase();
@@ -108,7 +110,7 @@ public class CardKeeper {
      */
     public void addCardToCardList(Card card, CardList cardList){
 	    cardList.addCard(card);
-        insertNewCard(card, cardList);
+        insertCard(card, cardList);
     }
 
     /**
@@ -135,7 +137,7 @@ public class CardKeeper {
         cardListMap.put(name, cardList);
     }
 
-    private void insertNewCard(Card card, CardList cardList){
+    private void insertCard(Card card, CardList cardList){
         String title = card.getName();
         String parent_list = cardList.getName();
         int index = -1;
@@ -150,6 +152,7 @@ public class CardKeeper {
         Log.d("CardKeeper", String.format("InsertCard: { title: %s, id: %d, parent_list: %s, card_index: %d, description: %s }", title, cardId, parent_list, index, description));
         prefEditor.putInt("currentID", ++cardId);
         prefEditor.commit();
+        cardMap.put(card.getId(), card);
     }
 
 
@@ -220,7 +223,9 @@ public class CardKeeper {
             description = cursor.getString(cursor.getColumnIndex("description"));
             Log.d("CardKeeper", "LoadCard-> " + String.format("{ ID: %d, Title: %s, Parent List: %s, Index: %d, Description: %s", id, title, parent_list, index, description));
             CardList parent = cardListMap.get(parent_list);
-            parent.addCard(new Card(title, description));
+            Card card = new Card(title, description);
+            parent.addCard(card);
+            cardMap.put(id, card);
         }while(!cursor.isLast());
     }
 
@@ -239,7 +244,8 @@ public class CardKeeper {
             long createdTime = cursor.getLong((cursor.getColumnIndex("date_created")));
             String detail = cursor.getString(cursor.getColumnIndex("detail"));
             Log.d("CardKeeper", String.format("LoadComment-> { card_id: %d, date_created: %d, detail: %s", card_id, createdTime, detail));
-            
+            Card card = cardMap.get(card_id);
+            card.addComment(new Comment(detail, createdTime));
         }while(!cursor.isLast());
     }
 
