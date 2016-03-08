@@ -133,7 +133,6 @@ public class CardKeeper {
         val.put("list_index", index);
         db.insert("CARD_LIST", null, val);
         Log.d("CardKeeper", "InsertCardList: " + "{ name: " + name + ", index: " + index + " }");
-        cardLists.add(cardList);
         cardListMap.put(name, cardList);
     }
 
