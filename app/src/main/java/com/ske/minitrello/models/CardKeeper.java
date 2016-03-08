@@ -225,6 +225,22 @@ public class CardKeeper {
     }
 
     private void loadComments(){
+        String[] col = {"card_id", "date_created", "detail"};
+        Cursor cursor = db.query("COMMENT", col, null, null, null, null, null);
+        Log.d("CardKeeper", String.format("LoadComment-> Cursor Column Count: %d", cursor.getColumnCount()));
+        for(String s : cursor.getColumnNames()){
+            Log.d("CardKeeper", String.format(" LoadCards-> Column names: %s", s));
+        }
+
+        do{
+            cursor.moveToNext();
+            if(cursor.isAfterLast()) break;
+            int card_id = cursor.getInt(cursor.getColumnIndex("card_id"));
+            long createdTime = cursor.getLong((cursor.getColumnIndex("date_created")));
+            String detail = cursor.getString(cursor.getColumnIndex("detail"));
+            Log.d("CardKeeper", String.format("LoadComment-> { card_id: %d, date_created: %d, detail: %s", card_id, createdTime, detail));
+            
+        }while(!cursor.isLast());
     }
 
     // TODO: implement delete a card list
