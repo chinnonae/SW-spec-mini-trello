@@ -46,9 +46,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
         viewPager = (ViewPager) findViewById(R.id.container);
         viewPager.setAdapter(pagerAdapter);
 
-
-
-
     }
 
 
