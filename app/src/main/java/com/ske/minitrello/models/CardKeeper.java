@@ -2,6 +2,7 @@ package com.ske.minitrello.models;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.DefaultDatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,7 +10,9 @@ import android.util.Log;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Load and store data (cards, card lists, comments, etc.).
@@ -33,6 +36,7 @@ public class CardKeeper {
     private SharedPreferences sharedPref;
     /** SharedPreference editor. */
     private SharedPreferences.Editor prefEditor;
+    private Map<String, CardList> cardListMap;
     
     
     /**
@@ -40,6 +44,7 @@ public class CardKeeper {
      */
     private CardKeeper(Context context) {
         cardLists = new ArrayList<CardList>();
+        cardListMap = new HashMap<String, CardList>();
         dbHandler = new DefaultDatabaseErrorHandler();
         helper = new DBHelper(context, dbHandler);
         db = helper.getWritableDatabase();
@@ -114,6 +119,7 @@ public class CardKeeper {
         db.insert("CARD_LIST", null, val);
         Log.d("CardKeeper", "InsertCardList: " + "{ name: " + name + ", index: " + index + " }");
         cardLists.add(cardList);
+        cardListMap.put(name, cardList);
     }
 
     private void insertNewCard(Card card, CardList cardList){
@@ -165,7 +171,9 @@ public class CardKeeper {
             name = cursor.getString(cursor.getColumnIndex("_name"));
             index = cursor.getInt(cursor.getColumnIndex("list_index"));
             Log.d("CardKeeper", "LoadCardLists-> " + String.format("{ Name: %s, Index: %d", name, index));
-            //create real cardList
+            CardList newone = new CardList(name);
+            cardLists.add(newone);
+            cardListMap.put(name, newone);
         }while(!cursor.isLast());
     }
 
@@ -186,7 +194,8 @@ public class CardKeeper {
             parent_list = cursor.getString(cursor.getColumnIndex("parent_list"));
             description = cursor.getString(cursor.getColumnIndex("description"));
             Log.d("CardKeeper", "LoadCard-> " + String.format("{ ID: %d, Title: %s, Parent List: %s, Index: %d, Description: %s", id, title, parent_list, index, description));
-            //add card to card list
+            CardList parent = cardListMap.get(parent_list);
+            parent.addCard(new Card(title, description));
         }while(!cursor.isLast());
     }
 
