@@ -5,7 +5,7 @@
     <item
         android:id="@+id/action_addlist"
         android:icon="@drawable/add_list"
-        android:title="Something"
+        android:title="Add List"
         app:showAsAction="always"
         android:orderInCategory="100"
         />

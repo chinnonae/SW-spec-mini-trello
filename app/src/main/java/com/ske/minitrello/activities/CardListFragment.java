@@ -71,6 +71,7 @@ public class CardListFragment extends Fragment implements Observer {
             public void onItemClick(View v, Card card) {
                 Intent intent = new Intent(context, ShowCardInfoActivity.class);
                 intent.putExtra("card", card);
+                intent.putExtra("card list", cardList);
                 startActivity(intent);
             }
         });

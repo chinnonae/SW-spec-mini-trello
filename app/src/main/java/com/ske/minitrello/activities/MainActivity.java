@@ -72,8 +72,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
     @Override
     public void update(Observable observable, Object data) {
-        Log.d("MainActivity", String.format("MainActivity notified, pagerAdapterCount: %d", pagerAdapter.getCount()));
-
         pagerAdapter.notifyDataSetChanged();
         viewPager.setCurrentItem(pagerAdapter.getCount() - 1);
     }

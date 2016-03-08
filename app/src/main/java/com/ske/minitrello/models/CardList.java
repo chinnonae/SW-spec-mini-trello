@@ -1,10 +1,11 @@
 package com.ske.minitrello.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class CardList {
+public class CardList implements Serializable {
 
     private String name;
     private List<Card> cards;
@@ -35,6 +36,10 @@ public class CardList {
 
     public void addCard(Card card) {
         cards.add(card);
+    }
+
+    public void removeCard(Card card) {
+        cards.remove(card);
     }
 
     public String getName() {
