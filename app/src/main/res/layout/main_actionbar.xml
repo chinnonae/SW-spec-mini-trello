@@ -8,28 +8,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Card Information"
-        android:textSize="17dp" />
+        android:text="Mini Trello"
+        android:textSize="20dp"
+        android:textColor="#ffffff" />
 
     <ImageView
-        android:id="@+id/back_button"
+        android:id="@+id/add_list_button"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:src="@drawable/left_arrow"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="10dp"
-        android:padding="3dp"
-        android:background="?android:selectableItemBackgroundBorderless" />
-
-    <ImageView
-        android:id="@+id/trash_button"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@drawable/trash_can"
+        android:src="@drawable/add_list"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="10dp"
-        android:padding="3dp"
+        android:layout_marginRight="15dp"
+        android:padding="1dp"
         android:background="?android:attr/selectableItemBackgroundBorderless"/>
 </RelativeLayout>

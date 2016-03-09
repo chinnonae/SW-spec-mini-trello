@@ -1,6 +1,5 @@
 package com.ske.minitrello.activities;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.v7.app.ActionBar;
@@ -11,8 +10,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,9 +17,7 @@ import android.widget.TextView;
 
 import com.ske.minitrello.R;
 import com.ske.minitrello.adapters.CommentAdapter;
-import com.ske.minitrello.dialogs.AddCardListDialog;
 import com.ske.minitrello.models.Card;
-import com.ske.minitrello.models.CardKeeper;
 import com.ske.minitrello.models.CardList;
 import com.ske.minitrello.models.Comment;
 
@@ -90,19 +85,30 @@ public class ShowCardInfoActivity extends AppCompatActivity {
 
     }
 
-    public void setCustomActionBar(){
+    public void setCustomActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
+
         LayoutInflater inflater = LayoutInflater.from(this);
+
         View customActionBar = inflater.inflate(R.layout.card_view_actionbar, null);
-        ImageView newCardList_img = (ImageView)customActionBar.findViewById(R.id.new_card_list_img);
-        newCardList_img.setOnClickListener(new View.OnClickListener() {
+        ImageView backButton = (ImageView)customActionBar.findViewById(R.id.back_button);
+        ImageView trashButton = (ImageView)customActionBar.findViewById(R.id.trash_button);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        trashButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDeleteDialog();
             }
         });
+
         actionBar.setCustomView(customActionBar);
         actionBar.setDisplayShowCustomEnabled(true);
     }

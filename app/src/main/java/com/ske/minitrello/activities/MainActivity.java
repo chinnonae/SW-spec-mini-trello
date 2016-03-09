@@ -1,13 +1,17 @@
 package com.ske.minitrello.activities;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.ske.minitrello.R;
 
@@ -46,29 +50,33 @@ public class MainActivity extends AppCompatActivity implements Observer {
         viewPager = (ViewPager) findViewById(R.id.container);
         viewPager.setAdapter(pagerAdapter);
 
+        setCustomActionBar();
+
+    }
+
+    public void setCustomActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+
+        View customActionBar = inflater.inflate(R.layout.main_actionbar, null);
+        ImageView addButton = (ImageView)customActionBar.findViewById(R.id.add_list_button);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddCardListDialog cardAddDialog = new AddCardListDialog();
+                cardAddDialog.addObserver(MainActivity.this);
+                cardAddDialog.showDialog(MainActivity.this);
+            }
+        });
+
+        actionBar.setCustomView(customActionBar);
+        actionBar.setDisplayShowCustomEnabled(true);
     }
 
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_addlist) {
-            AddCardListDialog cardAddDialog = new AddCardListDialog();
-            cardAddDialog.addObserver(MainActivity.this);
-            cardAddDialog.showDialog(MainActivity.this);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void update(Observable observable, Object data) {
