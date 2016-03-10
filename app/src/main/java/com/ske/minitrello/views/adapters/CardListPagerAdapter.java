@@ -1,4 +1,4 @@
-package com.ske.minitrello.adapters;
+package com.ske.minitrello.views.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

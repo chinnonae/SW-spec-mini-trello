@@ -16,16 +16,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ske.minitrello.R;
-import com.ske.minitrello.adapters.CommentAdapter;
+import com.ske.minitrello.views.adapters.CommentAdapter;
 import com.ske.minitrello.models.Card;
+import com.ske.minitrello.models.CardKeeper;
 import com.ske.minitrello.models.CardList;
 import com.ske.minitrello.models.Comment;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
 public class ShowCardInfoActivity extends AppCompatActivity {
 
-    EditText cardTitle;
+    TextView cardTitle;
     TextView cardDescription;
     ImageView editTitleBtn;
     ImageView editDescBtn;
@@ -44,43 +47,49 @@ public class ShowCardInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_card_info);
 
-        setCustomActionBar();
+        cardList = CardKeeper.getInstance().getLists().get(getIntent().getIntExtra("list position", 0));
+        card = cardList.getCards().get(getIntent().getIntExtra("card position", 0));
 
-        card = (Card)getIntent().getSerializableExtra("card");
-        cardList = (CardList)getIntent().getSerializableExtra("card list");
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, new CardInfoFragment(cardList, card))
+                    .commit();
+        }
 
-        recyclerView = (RecyclerView) findViewById(R.id.comment_recycler_view);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
+        //setCustomActionBar();
 
-        comments = card.getComments();
-        commentAdapter = new CommentAdapter(comments);
 
-        recyclerView.setLayoutManager(llm);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(commentAdapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//
+//        recyclerView = (RecyclerView) findViewById(R.id.comment_recycler_view);
+//        LinearLayoutManager llm = new LinearLayoutManager(this);
+//
+//        comments = card.getComments();
+//        commentAdapter = new CommentAdapter(comments);
+//
+//        recyclerView.setLayoutManager(llm);
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setAdapter(commentAdapter);
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//
 
-        cardTitle = (EditText) findViewById(R.id.card_dialog_title);
-        cardDescription = (TextView) findViewById(R.id.card_dialog_description);
-        editTitleBtn = (ImageView) findViewById(R.id.renameButton);
 
-        cardTitle.setFocusableInTouchMode(false);
-        cardTitle.setFocusable(false);
-        cardTitle.setCursorVisible(false);
-        cardTitle.setBackgroundColor(Color.TRANSPARENT);
+//
+//        cardTitle.setFocusableInTouchMode(false);
+//        cardTitle.setFocusable(false);
+//        cardTitle.setCursorVisible(false);
+//        cardTitle.setBackgroundColor(Color.TRANSPARENT);
+//
+//        addCommentBtn = (ImageView) findViewById(R.id.add_comment_button);
+//        addCommentBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Comment comment = new Comment("New comment");
+//                card.addComment(comment);
+//                commentAdapter.notifyItemInserted(comments.size() - 1);
+//            }
+//        });
+//
 
-        addCommentBtn = (ImageView) findViewById(R.id.add_comment_button);
-        addCommentBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Comment comment = new Comment("New comment");
-                card.addComment(comment);
-                commentAdapter.notifyItemInserted(comments.size() - 1);
-            }
-        });
-
-        cardTitle.setText(card.getName());
-        cardDescription.setText(card.getDescription());
 
 
     }
@@ -115,6 +124,7 @@ public class ShowCardInfoActivity extends AppCompatActivity {
 
     public void showDeleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Delete card");
         builder.setMessage("Are you sure you want to delete this card?");
         builder.setCancelable(true);
 

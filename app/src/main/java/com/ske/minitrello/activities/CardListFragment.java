@@ -15,8 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ske.minitrello.R;
-import com.ske.minitrello.adapters.CardAdapter;
-import com.ske.minitrello.adapters.CardItemClickListener;
+import com.ske.minitrello.views.adapters.CardAdapter;
+import com.ske.minitrello.views.adapters.CardItemClickListener;
 import com.ske.minitrello.dialogs.AddCardDialog;
 import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.CardKeeper;
@@ -32,6 +32,7 @@ public class CardListFragment extends Fragment implements Observer {
     private List<Card> cards;
     private CardAdapter cardAdapter;
     private RecyclerView recyclerView;
+    private int listPosition;
     Context context;
 
     public CardListFragment() {
@@ -49,15 +50,15 @@ public class CardListFragment extends Fragment implements Observer {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        int position = getArguments().getInt("position");
-        cardList = CardKeeper.getInstance().getLists().get(position);
+        listPosition = getArguments().getInt("position");
+        cardList = CardKeeper.getInstance().getLists().get(listPosition);
         cards = cardList.getCards();
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_card_list, container, false);
 
@@ -66,15 +67,7 @@ public class CardListFragment extends Fragment implements Observer {
 
         context = getContext();
 
-        cardAdapter = new CardAdapter(cards, new CardItemClickListener() {
-            @Override
-            public void onItemClick(View v, Card card) {
-                Intent intent = new Intent(context, ShowCardInfoActivity.class);
-                intent.putExtra("card", card);
-                intent.putExtra("card list", cardList);
-                startActivity(intent);
-            }
-        });
+        cardAdapter = new CardAdapter(cards, new ClickAction());
 
 
         recyclerView.setLayoutManager(llm);
@@ -106,5 +99,16 @@ public class CardListFragment extends Fragment implements Observer {
         cardAdapter.notifyItemInserted(cards.size() - 1);
         recyclerView.getLayoutManager().scrollToPosition(cards.size() - 1);
     }
+
+    class ClickAction implements CardItemClickListener{
+        @Override
+        public void onItemClick(View v, int position) {
+            Intent intent = new Intent(context, ShowCardInfoActivity.class);
+            intent.putExtra("card position", position);
+            intent.putExtra("list position", listPosition);
+            startActivity(intent);
+        }
+    }
+
 
 }

@@ -7,10 +7,11 @@ import java.util.List;
 
 public class Card implements Serializable {
 
+    private int id;
     private String name;
     private String description;
     private List<Comment> comments;
-    private int id;
+
 
     public Card(String name) {
         this.name = name;

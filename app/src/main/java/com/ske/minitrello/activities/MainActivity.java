@@ -1,29 +1,23 @@
 package com.ske.minitrello.activities;
 
-import android.content.Intent;
+import android.media.Image;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.ske.minitrello.R;
 
-import com.ske.minitrello.adapters.CardListPagerAdapter;
+import com.ske.minitrello.views.adapters.CardListPagerAdapter;
 import com.ske.minitrello.dialogs.AddCardListDialog;
-import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.CardKeeper;
-import com.ske.minitrello.models.CardList;
-import com.ske.minitrello.models.Comment;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -33,6 +27,7 @@ import java.util.Observer;
 
 public class MainActivity extends AppCompatActivity implements Observer {
 
+
     private CardListPagerAdapter pagerAdapter;
     private ViewPager viewPager;
 
@@ -41,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         CardKeeper ck = CardKeeper.getInstance(this);
 
         pagerAdapter = new CardListPagerAdapter(getSupportFragmentManager());
@@ -51,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         viewPager.setAdapter(pagerAdapter);
 
         setCustomActionBar();
+
 
     }
 

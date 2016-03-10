@@ -52,7 +52,7 @@ public class CardKeeper {
         dbHandler = new DefaultDatabaseErrorHandler();
         helper = new DBHelper(context, dbHandler);
         db = helper.getWritableDatabase();
-        
+
         sharedPref = context.getSharedPreferences("card_id", Context.MODE_PRIVATE);
         prefEditor = sharedPref.edit();
         if(sharedPref.getInt("currentID", -1) == -1) {
@@ -68,8 +68,8 @@ public class CardKeeper {
      * Return an instance of CardKeeper.
      * @return an instance of CardKeeper.
      */
-    public static CardKeeper getInstance(Context context){
-        if(instance==null) instance = new CardKeeper(context);
+    public static CardKeeper getInstance(Context context) {
+        if (instance == null) instance = new CardKeeper(context);
         return instance;
     }
 
@@ -78,7 +78,7 @@ public class CardKeeper {
      * Otherwise, this will return null value.
      * @return an instance of CardKeeper, or null if getInstance(Context) hasn't been invoked.
      */
-    public static CardKeeper getInstance(){
+    public static CardKeeper getInstance() {
         return instance;
     }
 
@@ -98,7 +98,7 @@ public class CardKeeper {
      * Add card list to the collection.
      * @param cardList a new card list.
      */
-    public void addCardList(CardList cardList){
+    public void addCardList(CardList cardList) {
         cardLists.add(cardList);
         insertCardList(cardList);
     }
@@ -108,7 +108,7 @@ public class CardKeeper {
      * @param card a card to be added to card list.
      * @param cardList a list that will hold the card.
      */
-    public void addCardToCardList(Card card, CardList cardList){
+    public void addCardToCardList(Card card, CardList cardList) {
 	    cardList.addCard(card);
         insertCard(card, cardList);
     }
@@ -118,14 +118,14 @@ public class CardKeeper {
      * @param comment a comment to be added to a card.
      * @param card a card that is commented.
      */
-    public void addCommentToCard(Comment comment, Card card){
+    public void addCommentToCard(Comment comment, Card card) {
         card.addComment(comment);
         insertComment(comment, card);
     }
 
 
     //insert to database
-    private void insertCardList(CardList cardList){
+    private void insertCardList(CardList cardList) {
         String name = cardList.getName();
         int index = -1;
         ContentValues val = new ContentValues(2);
@@ -136,7 +136,7 @@ public class CardKeeper {
         cardListMap.put(name, cardList);
     }
 
-    private void insertCard(Card card, CardList cardList){
+    private void insertCard(Card card, CardList cardList) {
         String title = card.getName();
         String parent_list = cardList.getName();
         int index = -1;
@@ -155,7 +155,7 @@ public class CardKeeper {
     }
 
 
-    private void insertComment(Comment comment, Card card){
+    private void insertComment(Comment comment, Card card) {
         long createdTime = comment.getLongCreatedTime();
         String detail = comment.getContent();
         int id = card.getId();
@@ -168,7 +168,7 @@ public class CardKeeper {
 
     }
 
-    private void testData(){
+    private void testData() {
         ContentValues val = new ContentValues(2);
         val.put("_name", "test name");
         val.put("list_index", 0);
@@ -181,16 +181,16 @@ public class CardKeeper {
         loadCards();
     }
 
-    private void loadCardLists(){
+    private void loadCardLists() {
         String[] col = {"_name", "list_index"};
         Cursor cursor = db.query("CARD_LIST", col, null,  null, null, null, null  );
         Log.d("CardKeeper", "LoadCardList-> " + "Cursor Column Count: " + cursor.getColumnCount());
-        for(String s : cursor.getColumnNames()){
+        for (String s : cursor.getColumnNames()) {
             Log.d("CardKeeper", "LoadCardList-> Column names: " + s);
         }
         do {
             cursor.moveToNext();
-            if(cursor.isAfterLast()) break;
+            if (cursor.isAfterLast()) break;
             String name;
             int index;
             name = cursor.getString(cursor.getColumnIndex("_name"));
@@ -202,11 +202,11 @@ public class CardKeeper {
         }while(!cursor.isLast());
     }
 
-    private void loadCards(){
+    private void loadCards() {
         String[] col = {"_id", "title", "parent_list", "card_index", "description"};
         Cursor cursor = db.query("CARD", col, null, null, null, null, null);
         Log.d("CardKeeper", "LoadCards-> " + "Cursor Column Count: " + cursor.getColumnCount());
-        for(String s : cursor.getColumnNames()){
+        for (String s : cursor.getColumnNames()) {
             Log.d("CardKeeper", "LoadCards-> " + "Column names: " + s);
         }
 
@@ -228,15 +228,15 @@ public class CardKeeper {
         }while(!cursor.isLast());
     }
 
-    private void loadComments(){
+    private void loadComments() {
         String[] col = {"card_id", "date_created", "detail"};
         Cursor cursor = db.query("COMMENT", col, null, null, null, null, null);
         Log.d("CardKeeper", String.format("LoadComment-> Cursor Column Count: %d", cursor.getColumnCount()));
-        for(String s : cursor.getColumnNames()){
+        for (String s : cursor.getColumnNames()) {
             Log.d("CardKeeper", String.format(" LoadCards-> Column names: %s", s));
         }
 
-        do{
+        do {
             cursor.moveToNext();
             if(cursor.isAfterLast()) break;
             int card_id = cursor.getInt(cursor.getColumnIndex("card_id"));
@@ -245,7 +245,7 @@ public class CardKeeper {
             Log.d("CardKeeper", String.format("LoadComment-> { card_id: %d, date_created: %d, detail: %s", card_id, createdTime, detail));
             Card card = cardMap.get(card_id);
             card.addComment(new Comment(detail, createdTime));
-        }while(!cursor.isLast());
+        } while (!cursor.isLast());
     }
 
     // TODO: implement delete a card list

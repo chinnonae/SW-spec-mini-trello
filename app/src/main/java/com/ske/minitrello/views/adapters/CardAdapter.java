@@ -1,4 +1,4 @@
-package com.ske.minitrello.adapters;
+package com.ske.minitrello.views.adapters;
 
 
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ske.minitrello.R;
+import com.ske.minitrello.activities.ShowCardInfoActivity;
 import com.ske.minitrello.models.Card;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     private List<Card> cards;
-    static CardItemClickListener listener;
+    private CardItemClickListener listener;
 
     public CardAdapter(List<Card> cards, CardItemClickListener listener) {
         this.cards = cards;
@@ -45,7 +46,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
         v.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {listener.onItemClick(v, cards.get(vh.getAdapterPosition()));
+            public void onClick(View v) {
+                listener.onItemClick(v, vh.getAdapterPosition());
             }
         });
 

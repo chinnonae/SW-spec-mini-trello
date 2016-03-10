@@ -1,4 +1,4 @@
-package com.ske.minitrello.adapters;
+package com.ske.minitrello.views.adapters;
 
 import android.view.View;
 
@@ -6,5 +6,5 @@ import com.ske.minitrello.models.Card;
 
 
 public interface CardItemClickListener {
-    public void onItemClick(View v, Card card);
+    public void onItemClick(View v, int position);
 }
