@@ -3,7 +3,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8ce0e0e0"
     android:focusable="true"
     android:focusableInTouchMode="true">
 
@@ -16,7 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add List"
+            android:text="@string/add_list_dialog_title"
             android:id="@+id/list_title_label"
             android:layout_alignParentStart="true"
             android:textSize="20sp"
@@ -37,7 +36,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_below="@+id/list_title_label"
                 android:backgroundTint="@color/colorPrimary"
-                />
+                android:textSize="14sp" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -56,26 +55,30 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="36dp"
-            android:text="OK"
+            android:text="@string/confirm_button"
             android:id="@+id/dialog_confirm_btn"
             android:textColor="@color/colorPrimary"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="8dp"
             android:textStyle="bold"
             android:background="?android:selectableItemBackgroundBorderless"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:textSize="14sp"
+            android:textAllCaps="true"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="36dp"
-            android:text="CANCEL"
+            android:text="@string/cancel_button"
             android:id="@+id/dialog_cancle_btn"
             android:textColor="@color/colorPrimary"
             android:layout_toStartOf="@+id/dialog_confirm_btn"
             android:layout_marginRight="8dp"
             android:background="?android:selectableItemBackgroundBorderless"
             android:layout_centerVertical="true"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:textSize="14sp"
+            android:textAllCaps="true"/>
 
     </RelativeLayout>
 

@@ -12,7 +12,6 @@ import com.ske.minitrello.R;
 import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.CardList;
 
-import org.w3c.dom.Text;
 
 /**
  * Created by Peter on 3/10/2016 AD.

@@ -3,10 +3,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#8ce0e0e0"
     android:focusable="true"
     android:focusableInTouchMode="true">
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,9 +15,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Card"
+            android:text="@string/add_card_dialog_title"
             android:textSize="20sp"
-            android:textStyle="bold"
             android:layout_marginBottom="16dp" />
 
 
@@ -37,7 +34,8 @@
                 android:hint="Title"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:backgroundTint="@color/colorPrimary" />
+                android:backgroundTint="@color/colorPrimary"
+                android:textSize="14sp" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -55,7 +53,8 @@
                 android:hint="Description"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:backgroundTint="@color/colorPrimary" />
+                android:backgroundTint="@color/colorPrimary"
+                android:textSize="14sp" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -73,7 +72,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="36dp"
-            android:text="OK"
+            android:text="@string/confirm_button"
             android:id="@+id/dialog_confirm_btn"
             android:gravity="center_vertical|center_horizontal"
             android:textColor="@color/colorPrimary"
@@ -82,19 +81,23 @@
             android:textStyle="bold"
             android:background="?android:selectableItemBackgroundBorderless"
             android:layout_centerVertical="true"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:textSize="14sp"
+            android:textAllCaps="true"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="36dp"
-            android:text="CANCEL"
+            android:text="@string/cancel_button"
             android:id="@+id/dialog_cancle_btn"
             android:textColor="@color/colorPrimary"
             android:layout_toStartOf="@+id/dialog_confirm_btn"
             android:layout_marginRight="8dp"
             android:background="?android:selectableItemBackgroundBorderless"
             android:layout_centerVertical="true"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:textSize="14sp"
+            android:textAllCaps="true"/>
 
     </RelativeLayout>
 
