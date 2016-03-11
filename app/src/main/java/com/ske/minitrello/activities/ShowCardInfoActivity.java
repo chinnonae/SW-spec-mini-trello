@@ -6,9 +6,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.ske.minitrello.R;
 import com.ske.minitrello.views.adapters.CommentAdapter;
@@ -19,7 +22,7 @@ import com.ske.minitrello.models.Comment;
 
 import java.util.List;
 
-public class ShowCardInfoActivity extends AppCompatActivity {
+public class ShowCardInfoActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
 
     RecyclerView recyclerView;
     CommentAdapter commentAdapter;
@@ -34,6 +37,16 @@ public class ShowCardInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_card_info);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.cardview_toolbar);
+        toolbar.inflateMenu(R.menu.menu_card_view);
+        toolbar.setOnMenuItemClickListener(this);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         cardList = CardKeeper.getInstance().getLists().get(getIntent().getIntExtra("list position", 0));
         card = cardList.getCards().get(getIntent().getIntExtra("card position", 0));
 
@@ -43,38 +56,9 @@ public class ShowCardInfoActivity extends AppCompatActivity {
                     .commit();
         }
 
-        //setCustomActionBar();
-
 
     }
 
-    public void setCustomActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(true);
-
-        LayoutInflater inflater = LayoutInflater.from(this);
-
-        View customActionBar = inflater.inflate(R.layout.card_view_actionbar, null);
-        ImageView backButton = (ImageView)customActionBar.findViewById(R.id.back_button);
-        ImageView trashButton = (ImageView)customActionBar.findViewById(R.id.trash_button);
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        trashButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDeleteDialog();
-            }
-        });
-
-        actionBar.setCustomView(customActionBar);
-        actionBar.setDisplayShowCustomEnabled(true);
-    }
 
     public void showDeleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -103,5 +87,17 @@ public class ShowCardInfoActivity extends AppCompatActivity {
 
         AlertDialog alert11 = builder.create();
         alert11.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_remove_card:
+                Toast.makeText(this, "remove card", Toast.LENGTH_SHORT).show();
+                return true;
+
+        }
+
+        return true;
     }
 }

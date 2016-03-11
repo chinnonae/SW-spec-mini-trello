@@ -6,4 +6,11 @@
     android:id="@+id/container"
     android:orientation="vertical">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/cardview_toolbar"
+        style="@style/CardInfoToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:title="Card Info"/>
+
 </LinearLayout>

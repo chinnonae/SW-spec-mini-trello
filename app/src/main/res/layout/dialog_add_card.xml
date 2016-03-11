@@ -83,7 +83,8 @@
             android:layout_centerVertical="true"
             android:padding="10dp"
             android:textSize="14sp"
-            android:textAllCaps="true"/>
+            android:textAllCaps="true"
+            />
 
         <TextView
             android:layout_width="wrap_content"

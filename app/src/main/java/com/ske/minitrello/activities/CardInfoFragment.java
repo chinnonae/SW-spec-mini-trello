@@ -13,9 +13,7 @@ import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.CardList;
 
 
-/**
- * Created by Peter on 3/10/2016 AD.
- */
+
 public class CardInfoFragment extends Fragment {
 
     Card card;

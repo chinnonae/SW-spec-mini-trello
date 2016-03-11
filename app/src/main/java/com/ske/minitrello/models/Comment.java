@@ -26,9 +26,9 @@ public class Comment implements Serializable {
         return content;
     }
 
-    public long getLongCreatedTime(){ return createdTime; }
+    public long getCreatedTime(){ return createdTime; }
 
-    public String getCreatedTime() {
+    public String getReadableTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");
         return sdf.format(new Date(createdTime));
     }

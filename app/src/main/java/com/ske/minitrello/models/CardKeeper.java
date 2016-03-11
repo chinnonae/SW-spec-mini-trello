@@ -156,7 +156,7 @@ public class CardKeeper {
 
 
     private void insertComment(Comment comment, Card card) {
-        long createdTime = comment.getLongCreatedTime();
+        long createdTime = comment.getCreatedTime();
         String detail = comment.getContent();
         int id = card.getId();
         ContentValues val = new ContentValues(3);

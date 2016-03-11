@@ -1,16 +1,16 @@
 package com.ske.minitrello.activities;
 
-import android.media.Image;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.ske.minitrello.R;
 
@@ -25,7 +25,7 @@ import java.util.Observer;
  *  Main page that show list of card lists including the cards inside the lists.
  */
 
-public class MainActivity extends AppCompatActivity implements Observer {
+public class MainActivity extends AppCompatActivity implements Observer, Toolbar.OnMenuItemClickListener {
 
 
     private CardListPagerAdapter pagerAdapter;
@@ -36,6 +36,12 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.menu_main);
+        toolbar.setOnMenuItemClickListener(this);
+
+        // Inject this MainActivity to CardKeeper
         CardKeeper ck = CardKeeper.getInstance(this);
 
         pagerAdapter = new CardListPagerAdapter(getSupportFragmentManager());
@@ -44,9 +50,21 @@ public class MainActivity extends AppCompatActivity implements Observer {
         viewPager = (ViewPager) findViewById(R.id.container);
         viewPager.setAdapter(pagerAdapter);
 
-        setCustomActionBar();
+        //setCustomActionBar();
 
 
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_addlist:
+                Toast.makeText(this, "add list", Toast.LENGTH_SHORT).show();
+                return true;
+
+        }
+
+        return true;
     }
 
     public void setCustomActionBar() {
@@ -56,19 +74,19 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
         LayoutInflater inflater = LayoutInflater.from(this);
 
-        View customActionBar = inflater.inflate(R.layout.main_actionbar, null);
-        ImageView addButton = (ImageView)customActionBar.findViewById(R.id.add_list_button);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddCardListDialog cardAddDialog = new AddCardListDialog();
-                cardAddDialog.addObserver(MainActivity.this);
-                cardAddDialog.showDialog(MainActivity.this);
-            }
-        });
-
-        actionBar.setCustomView(customActionBar);
-        actionBar.setDisplayShowCustomEnabled(true);
+//        View customActionBar = inflater.inflate(R.layout.main_toolbar, null);
+//        ImageView addButton = (ImageView)customActionBar.findViewById(R.id.add_list_button);
+//        addButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AddCardListDialog cardAddDialog = new AddCardListDialog();
+//                cardAddDialog.addObserver(MainActivity.this);
+//                cardAddDialog.showDialog(MainActivity.this);
+//            }
+//        });
+//
+//        actionBar.setCustomView(customActionBar);
+//        actionBar.setDisplayShowCustomEnabled(true);
     }
 
 

@@ -6,19 +6,21 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
-    
-    <!--<style name="TextTitleSize">-->
-        <!--<item name="android:textSize">20sp</item>-->
-    <!--</style>-->
-    <!-- -->
-    <!--<style name="TextBodySize">-->
-        <!--<item name="android:textSize">14sp</item>-->
-    <!--</style>-->
-    <!-- -->
-    <!--<style name="TextSubheadingSize">-->
-        <!--<item name="android:textSize">16sp</item>-->
-    <!--</style>-->
+
+    <style name="MainToolbar">
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="android:background">?colorPrimary</item>
+    </style>
+
+    <style name="CardInfoToolbar">
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="navigationIcon">@drawable/abc_ic_ab_back_mtrl_am_alpha</item>
+        <item name="android:background">?colorPrimary</item>
+    </style>
+
 
     <style name="PauseDialogAnimation">
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
@@ -28,6 +30,10 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="FlatButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
