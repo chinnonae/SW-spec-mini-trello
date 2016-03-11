@@ -7,65 +7,75 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add List"
-        android:id="@+id/list_title_label"
-        android:layout_alignParentStart="true"
-        android:padding="20dp"
-        android:textSize="20sp" />
+        android:padding="24dp"
+        android:orientation="vertical">
 
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_cardlist_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/cardlist_title"
-            android:hint="Title"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_below="@+id/list_title_label"
-            android:backgroundTint="@color/colorPrimary"
-            />
+            android:text="Add List"
+            android:id="@+id/list_title_label"
+            android:layout_alignParentStart="true"
+            android:textSize="20sp"
+            android:layout_marginBottom="16dp" />
 
-    </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_cardlist_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/cardlist_title"
+                android:hint="Title"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_below="@+id/list_title_label"
+                android:backgroundTint="@color/colorPrimary"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+    </LinearLayout>
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="52dp"
         android:layout_below="@+id/input_layout_cardlist_title"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="20dp">
+        android:padding="8dp">
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:text="OK"
             android:id="@+id/dialog_confirm_btn"
-            android:gravity="center_vertical|center_horizontal"
             android:textColor="@color/colorPrimary"
             android:layout_alignParentEnd="true"
-            android:layout_alignBottom="@+id/dialog_cancle_btn"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="8dp"
             android:textStyle="bold"
-            android:background="?android:selectableItemBackgroundBorderless"/>
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:padding="10dp" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:text="CANCEL"
             android:id="@+id/dialog_cancle_btn"
             android:textColor="@color/colorPrimary"
-            android:layout_alignParentTop="true"
             android:layout_toStartOf="@+id/dialog_confirm_btn"
-            android:layout_marginRight="20dp"
-            android:background="?android:selectableItemBackgroundBorderless"/>
+            android:layout_marginRight="8dp"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:layout_centerVertical="true"
+            android:padding="10dp" />
 
     </RelativeLayout>
 
