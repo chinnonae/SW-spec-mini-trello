@@ -4,7 +4,7 @@
     tools:context=".activities.MainActivity">
     <item
         android:id="@+id/action_addlist"
-        android:icon="@drawable/add_list"
+        android:icon="@drawable/ic_playlist_add_black_24dp"
         android:title="Add List"
         app:showAsAction="always"
         android:orderInCategory="100"

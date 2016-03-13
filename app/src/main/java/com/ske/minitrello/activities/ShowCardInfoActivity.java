@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.ske.minitrello.R;
+import com.ske.minitrello.dialogs.AddCardListDialog;
 import com.ske.minitrello.views.adapters.CommentAdapter;
 import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.CardKeeper;
@@ -93,7 +94,7 @@ public class ShowCardInfoActivity extends AppCompatActivity implements Toolbar.O
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_remove_card:
-                Toast.makeText(this, "remove card", Toast.LENGTH_SHORT).show();
+                showDeleteDialog();
                 return true;
 
         }

@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -10,13 +10,17 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="DialogButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+    </style>
+
     <style name="MainToolbar">
-        <item name="theme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="android:background">?colorPrimary</item>
     </style>
 
     <style name="CardInfoToolbar">
-        <item name="theme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="navigationIcon">@drawable/abc_ic_ab_back_mtrl_am_alpha</item>
         <item name="android:background">?colorPrimary</item>
     </style>

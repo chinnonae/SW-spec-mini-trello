@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements Observer, Toolbar
         viewPager = (ViewPager) findViewById(R.id.container);
         viewPager.setAdapter(pagerAdapter);
 
-        //setCustomActionBar();
 
 
     }
@@ -59,37 +58,15 @@ public class MainActivity extends AppCompatActivity implements Observer, Toolbar
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_addlist:
-                Toast.makeText(this, "add list", Toast.LENGTH_SHORT).show();
+                AddCardListDialog cardAddDialog = new AddCardListDialog();
+                cardAddDialog.addObserver(MainActivity.this);
+                cardAddDialog.showDialog(MainActivity.this);
                 return true;
 
         }
 
         return true;
     }
-
-    public void setCustomActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(true);
-
-        LayoutInflater inflater = LayoutInflater.from(this);
-
-//        View customActionBar = inflater.inflate(R.layout.main_toolbar, null);
-//        ImageView addButton = (ImageView)customActionBar.findViewById(R.id.add_list_button);
-//        addButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                AddCardListDialog cardAddDialog = new AddCardListDialog();
-//                cardAddDialog.addObserver(MainActivity.this);
-//                cardAddDialog.showDialog(MainActivity.this);
-//            }
-//        });
-//
-//        actionBar.setCustomView(customActionBar);
-//        actionBar.setDisplayShowCustomEnabled(true);
-    }
-
-
 
     @Override
     public void update(Observable observable, Object data) {

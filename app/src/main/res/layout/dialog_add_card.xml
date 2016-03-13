@@ -66,39 +66,36 @@
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:layout_below="@+id/card_desc_input"
-        android:layout_centerHorizontal="true"
-        android:padding="8dp">
+        android:layout_centerHorizontal="true">
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
+            android:layout_height="wrap_content"
             android:text="@string/confirm_button"
             android:id="@+id/dialog_confirm_btn"
             android:gravity="center_vertical|center_horizontal"
             android:textColor="@color/colorPrimary"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="8dp"
             android:textStyle="bold"
-            android:background="?android:selectableItemBackgroundBorderless"
             android:layout_centerVertical="true"
-            android:padding="10dp"
             android:textSize="14sp"
             android:textAllCaps="true"
-            />
+            android:theme="@style/DialogButton"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
+            android:layout_height="wrap_content"
             android:text="@string/cancel_button"
             android:id="@+id/dialog_cancle_btn"
             android:textColor="@color/colorPrimary"
             android:layout_toStartOf="@+id/dialog_confirm_btn"
             android:layout_marginRight="8dp"
-            android:background="?android:selectableItemBackgroundBorderless"
             android:layout_centerVertical="true"
-            android:padding="10dp"
             android:textSize="14sp"
-            android:textAllCaps="true"/>
+            android:textAllCaps="true"
+            android:theme="@style/DialogButton"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
 
     </RelativeLayout>
 
