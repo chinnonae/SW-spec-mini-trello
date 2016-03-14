@@ -65,6 +65,10 @@ public class Card implements Serializable {
         this.name = name;
     }
 
+    void setId(int id){
+        this.id = id;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
