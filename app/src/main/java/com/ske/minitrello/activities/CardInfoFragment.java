@@ -41,4 +41,6 @@ public class CardInfoFragment extends Fragment {
 
         return rootView;
     }
+
+
 }

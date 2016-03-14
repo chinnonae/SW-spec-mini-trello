@@ -63,8 +63,8 @@ public class ShowCardInfoActivity extends AppCompatActivity implements Toolbar.O
 
     public void showDeleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Delete card");
-        builder.setMessage("Are you sure you want to delete this card?");
+        builder.setTitle("Message");
+        builder.setMessage("Remove this card?");
         builder.setCancelable(true);
 
         builder.setPositiveButton(

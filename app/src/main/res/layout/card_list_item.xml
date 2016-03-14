@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        card_view:cardElevation="3dp"
+        card_view:cardElevation="2dp"
         card_view:cardCornerRadius="1dp">
 
         <LinearLayout
