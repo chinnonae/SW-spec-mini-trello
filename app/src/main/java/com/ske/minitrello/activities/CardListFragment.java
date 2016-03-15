@@ -129,10 +129,8 @@ public class CardListFragment extends Fragment implements Observer {
                 "Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // TODO implement card removal
-//                        cardList.removeCard(card);
+                        ((MainActivity)getActivity()).delete(cardList);
                         dialog.cancel();
-//                        finish();
                     }
                 });
 

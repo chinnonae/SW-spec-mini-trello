@@ -1,11 +1,13 @@
 package com.ske.minitrello.activities;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import com.ske.minitrello.R;
 
+import com.ske.minitrello.models.CardList;
 import com.ske.minitrello.views.adapters.CardListPagerAdapter;
 import com.ske.minitrello.dialogs.AddCardListDialog;
 import com.ske.minitrello.models.CardKeeper;
@@ -50,8 +53,6 @@ public class MainActivity extends AppCompatActivity implements Observer, Toolbar
         viewPager = (ViewPager) findViewById(R.id.container);
         viewPager.setAdapter(pagerAdapter);
 
-
-
     }
 
     @Override
@@ -64,13 +65,26 @@ public class MainActivity extends AppCompatActivity implements Observer, Toolbar
                 return true;
 
         }
-
         return true;
+    }
+
+    public void delete(CardList cardList) {
+        int position = CardKeeper.getInstance().getLists().indexOf(cardList);
+        CardKeeper.getInstance().deleteCardList(cardList);
+        pagerAdapter = new CardListPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.setCurrentItem(position - 1);
     }
 
     @Override
     public void update(Observable observable, Object data) {
         pagerAdapter.notifyDataSetChanged();
         viewPager.setCurrentItem(pagerAdapter.getCount() - 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e("123123123","1231231");
     }
 }

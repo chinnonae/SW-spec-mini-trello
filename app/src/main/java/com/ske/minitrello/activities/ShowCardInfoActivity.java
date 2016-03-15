@@ -72,7 +72,7 @@ public class ShowCardInfoActivity extends AppCompatActivity implements Toolbar.O
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // TODO implement card removal
-                        cardList.removeCard(card);
+                        CardKeeper.getInstance().deleteCard(card);
                         dialog.cancel();
                         finish();
                     }
