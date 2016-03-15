@@ -129,6 +129,7 @@ public class CardKeeper {
 		cardListMap.remove(cardList.getName());
 		cardLists.remove(cardList);
 		deleteCardListFromDB(cardList);
+		for(Card card: cardList.getCards()) deleteCard(card);
 	}
 
 	/**
@@ -139,6 +140,7 @@ public class CardKeeper {
 		CardList temp = cardListMap.remove(name);
 		cardLists.remove(temp);
 		deleteCardListFromDB(temp);
+		for(Card card: temp.getCards()) deleteCard(card);
 	}
 
 	/**
@@ -150,6 +152,7 @@ public class CardKeeper {
 		String cardListName = getParentCardList(temp.getId());
 		cardListMap.get(cardListName).removeCard(temp);
 		db.delete("CARD", "_id=?", new String[]{"" + temp.getId()});
+		for(Comment comment : temp.getComments())deleteComment(comment);
 	}
 
 	/**
@@ -161,6 +164,7 @@ public class CardKeeper {
 		String cardListName = getParentCardList(card.getId());
 		cardListMap.get(cardListName).removeCard(card);
 		db.delete("CARD","_id=?", new String[]{""+card.getId()});
+		for(Comment comment : card.getComments())deleteComment(comment);
 	}
 
 
