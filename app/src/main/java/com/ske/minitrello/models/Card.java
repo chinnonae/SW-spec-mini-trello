@@ -12,6 +12,15 @@ public class Card implements Serializable {
     private String description;
     private List<Comment> comments;
 
+    public enum DBColumn{
+        name("title"),description("description");
+
+        private String colName;
+        private DBColumn(String colName){
+            this.colName = colName;
+        }
+    }
+
 
     public Card(String name) {
         this.name = name;
@@ -34,11 +43,18 @@ public class Card implements Serializable {
 
     }
 
-    public Card(String name, String description, int id){
+    public Card(String name, String description, List<Comment> comments ,int id){
         this.name = name;
         this.description = description;
         this.id = id;
-        comments = new ArrayList<Comment>();
+        this.comments = comments;
+    }
+
+    public Card(String name, String description,int id){
+        this.name = name;
+        this.description = description;
+        this.id = id;
+        this.comments = new ArrayList<Comment>();
     }
 
     public String getName() {
@@ -78,5 +94,21 @@ public class Card implements Serializable {
     @Override
     public String toString() {
         return "Card name: " + name + "\nDescription: " + description + "\n";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Card card = (Card) o;
+
+        return id == card.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }

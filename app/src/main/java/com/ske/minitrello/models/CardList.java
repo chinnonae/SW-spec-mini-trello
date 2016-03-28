@@ -49,4 +49,20 @@ public class CardList implements Serializable {
     public List<Card> getCards() {
         return cards;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CardList cardList = (CardList) o;
+
+        return name.equals(cardList.name);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
 }

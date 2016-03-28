@@ -37,4 +37,23 @@ public class Comment implements Serializable {
         PrettyTime prettyTime = new PrettyTime();
         return prettyTime.format(new Date(createdTime));
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Comment comment = (Comment) o;
+
+        if (createdTime != comment.createdTime) return false;
+        return content.equals(comment.content);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = content.hashCode();
+        result = 31 * result + (int) (createdTime ^ (createdTime >>> 32));
+        return result;
+    }
 }
