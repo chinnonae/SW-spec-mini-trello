@@ -1,20 +1,16 @@
 package com.ske.minitrello.activities;
 
 import android.content.DialogInterface;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.ske.minitrello.R;
-import com.ske.minitrello.dialogs.AddCardListDialog;
+import com.ske.minitrello.utils.CardUtil;
 import com.ske.minitrello.views.adapters.CommentAdapter;
 import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.CardKeeper;
@@ -31,6 +27,7 @@ public class ShowCardInfoActivity extends AppCompatActivity implements Toolbar.O
     CardList cardList;
     Card card;
     List<Comment> comments;
+    int cardPosition;
 
 
     @Override
@@ -48,8 +45,9 @@ public class ShowCardInfoActivity extends AppCompatActivity implements Toolbar.O
             }
         });
 
+        cardPosition = getIntent().getIntExtra("card position", 0);
         cardList = CardKeeper.getInstance().getLists().get(getIntent().getIntExtra("list position", 0));
-        card = cardList.getCards().get(getIntent().getIntExtra("card position", 0));
+        card = cardList.getCards().get(cardPosition);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -72,7 +70,8 @@ public class ShowCardInfoActivity extends AppCompatActivity implements Toolbar.O
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // TODO implement card removal
-                        cardList.removeCard(card);
+                        //CardKeeper.getInstance().deleteCard(card);
+                        CardUtil.deleteCard(card, cardPosition);
                         dialog.cancel();
                         finish();
                     }

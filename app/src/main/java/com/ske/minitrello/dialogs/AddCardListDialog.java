@@ -22,7 +22,7 @@ public class AddCardListDialog extends Observable {
     public void showDialog(Activity activity) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
+        dialog.getWindow().getAttributes().windowAnimations = R.style.AddDialogAnimation;
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog_add_card_list);
 
