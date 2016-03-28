@@ -126,7 +126,7 @@ public class DBHandler {
             int index = cursor.getInt(cursor.getColumnIndex("list_index"));
             Log.d("DBHadnler", String.format("LoadCardList-> { cardList_name: %s, index: %d }", name, index));
 
-            CardList cardList = new CardList("name", loadCards(name));
+            CardList cardList = new CardList(name, loadCards(name));
             cardLists.add(cardList);
         } while (!cursor.isLast());
 
@@ -157,15 +157,15 @@ public class DBHandler {
     }
 
     public void deleteCardList(String cardListName){
-        db.delete("CARD_LIST", "_name", new String[]{cardListName});
+        db.delete("CARD_LIST", "_name=?", new String[]{cardListName});
     }
 
     public void deleteCommentsOf(int cardId){
-        db.delete("COMMENT", "card_id", new String[]{String.valueOf(cardId)});
+        db.delete("COMMENT", "card_id=?", new String[]{String.valueOf(cardId)});
     }
 
     public void deleteCardsOf(String cardListName){
-        db.delete("CARD", "parent_list", new String[]{cardListName});
+        db.delete("CARD", "parent_list=?", new String[]{cardListName});
     }
 
     public void insertComment(Card card, Comment comment){

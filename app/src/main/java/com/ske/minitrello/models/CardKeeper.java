@@ -76,6 +76,10 @@ public class CardKeeper {
         return cardLists;
     }
 
+    public int getSize(){
+        return cardLists.size();
+    }
+
     public void addCardList(CardList cardList){
         cardLists.add(cardList);
         cardListMap.put(cardList.getName(), cardList);
@@ -86,6 +90,11 @@ public class CardKeeper {
     public void addCardToCardList(Card card, CardList cardList){
         cardList.addCard(card);
         cardParent.put(card.getId(), cardList);
+        if(card.getId() < 1000000){
+            card.setId(this.cardId);
+            prefEditor.putInt("currentID", ++cardId);
+            prefEditor.commit();
+        }
 
         dbHandler.insertCard(cardList, card);
     }
@@ -107,21 +116,24 @@ public class CardKeeper {
     public void deleteCard(Card card){
         dbHandler.deleteCard(card.getId());
 
-        for(Comment comment : card.getComments()){
-            deleteComment(comment);
+        while(!card.getComments().isEmpty()){
+            deleteComment(card.getComments().get(0));
         }
 
         cardMap.remove(card.getId());
-        CardList cardList = cardParent.remove(card.getId());
+        CardList cardList = cardParent.get(card.getId());
         cardList.removeCard(card);
+        cardParent.remove(card.getId());
 
     }
 
     public void deleteCardList(CardList cardList){
         dbHandler.deleteCardList(cardList.getName());
-        for(Card card : cardList.getCards()){
-            deleteCard(card);
+
+        while(!cardList.getCards().isEmpty()){
+            deleteCard(cardList.getCards().get(0));
         }
+
         cardLists.remove(cardList);
         cardListMap.remove(cardList);
 

@@ -13,7 +13,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
 
     public DBHelper(Context context, DatabaseErrorHandler dbErrorHandler) {
-        super(context, "mini-trello-db", null, 2, dbErrorHandler);
+        super(context, "mini-trello-db", null, 3, dbErrorHandler);
     }
 
     @Override
