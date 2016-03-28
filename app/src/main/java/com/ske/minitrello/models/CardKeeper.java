@@ -17,7 +17,7 @@ public class CardKeeper {
     /** a collection of card lists. */
     private List<CardList> cardLists;
     /** Current new card id. */
-    private int cardId = 1000000;
+    private static int cardId = 1000000;
 
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor prefEditor;
@@ -39,7 +39,7 @@ public class CardKeeper {
 
         sharedPref = context.getSharedPreferences("card_id", Context.MODE_PRIVATE);
         prefEditor = sharedPref.edit();
-        if(sharedPref.getInt("curentID", -1) == -1){
+        if(sharedPref.getInt("currentID", -1) == -1){
             prefEditor.putInt("currentID", cardId);
             prefEditor.commit();
         }
@@ -89,17 +89,21 @@ public class CardKeeper {
 
     public void addCardToCardList(Card card, CardList cardList){
         cardList.addCard(card);
-        cardParent.put(card.getId(), cardList);
         if(card.getId() < 1000000){
             card.setId(this.cardId);
-            prefEditor.putInt("currentID", ++cardId);
-            prefEditor.commit();
+
         }
 
         dbHandler.insertCard(cardList, card);
+
+        cardParent.put(card.getId(), cardList);
+        cardMap.put(card.getId(), card);
+
+        prefEditor.putInt("currentID", ++cardId);
+        prefEditor.commit();
     }
 
-    public void addCommentToCard(Comment comment, Card card){
+    public void addCommentToCard(Comment comment, Card card) {
         card.addComment(comment);
         commentToCardMap.put(comment, card);
 

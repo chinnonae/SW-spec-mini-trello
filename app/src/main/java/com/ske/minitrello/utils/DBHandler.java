@@ -215,7 +215,7 @@ public class DBHandler {
     public void insertCardList(String cardListName){
         ContentValues vals = new ContentValues();
         vals.put("_name", cardListName);
-        vals.put("index", -1);
+        vals.put("list_index", -1);
 
         db.insert("CARD_LIST", null, vals);
         Log.d("DBHandler", String.format("insertCardList-> { name: %s, index: %d }" , cardListName, -1));
