@@ -1,18 +1,14 @@
 package com.ske.minitrello.activities;
 
+
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
+
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.ske.minitrello.R;
 
@@ -82,9 +78,5 @@ public class MainActivity extends AppCompatActivity implements Observer, Toolbar
         viewPager.setCurrentItem(pagerAdapter.getCount() - 1);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.e("123123123","1231231");
-    }
+
 }

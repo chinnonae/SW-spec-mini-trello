@@ -23,8 +23,8 @@ public class CardInfoFragment extends Fragment {
     TextView cardDescription;
 
     public CardInfoFragment(CardList cardList, Card card) {
-        this.cardList = cardList;
         this.card = card;
+        this.cardList = cardList;
     }
 
     @Nullable

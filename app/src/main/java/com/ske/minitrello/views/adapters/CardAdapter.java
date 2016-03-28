@@ -25,6 +25,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         this.listener = listener;
     }
 
+    public void remove(int position){
+        cards.remove(position);
+        notifyItemRemoved(position);
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView cardTitle;

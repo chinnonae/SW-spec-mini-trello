@@ -9,7 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ske.minitrello.R;
+import com.ske.minitrello.utils.CardUtil;
 import com.ske.minitrello.views.adapters.CardAdapter;
 import com.ske.minitrello.views.adapters.CardItemClickListener;
 import com.ske.minitrello.dialogs.AddCardDialog;
@@ -55,7 +55,6 @@ public class CardListFragment extends Fragment implements Observer {
         listPosition = getArguments().getInt("position");
         cardList = CardKeeper.getInstance().getLists().get(listPosition);
         cards = cardList.getCards();
-
     }
 
     @Override
@@ -70,6 +69,7 @@ public class CardListFragment extends Fragment implements Observer {
         context = getContext();
 
         cardAdapter = new CardAdapter(cards, new ClickAction());
+        CardUtil.setCardAdapter(cardAdapter);
 
         recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);
@@ -113,6 +113,7 @@ public class CardListFragment extends Fragment implements Observer {
         @Override
         public void onItemClick(View v, int position) {
             Intent intent = new Intent(context, ShowCardInfoActivity.class);
+            //CardUtil.setCard(cardList.getCards().get(position));
             intent.putExtra("card position", position);
             intent.putExtra("list position", listPosition);
             startActivity(intent);
