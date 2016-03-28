@@ -10,6 +10,20 @@ public class CardList implements Serializable {
     private String name;
     private List<Card> cards;
 
+    public enum DBColumn{
+        name("_name");
+
+        private String colName;
+        private DBColumn(String col){
+            this.colName = col;
+        }
+
+        public String toString(){
+            return colName;
+        }
+
+    }
+
     public CardList(String name) {
         this.name = name;
         cards = new ArrayList<Card>();

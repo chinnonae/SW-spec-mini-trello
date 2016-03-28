@@ -25,12 +25,12 @@ public class CardUtil {
 
 
     public static void renameCard(Card card, String name) {
-        card.setName(name);
+        CardKeeper.getInstance().renameCard(card, name);
         cardAdapter.notifyDataSetChanged();
     }
 
     public static void renameCardList(CardList cardList, String name) {
-        cardList.setName(name);
+        CardKeeper.getInstance().renameCardList(cardList, name);
         viewPager.getAdapter().notifyDataSetChanged();
     }
 

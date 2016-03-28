@@ -1,4 +1,4 @@
-package com.ske.minitrello.models;
+package com.ske.minitrello.utils;
 
 import android.content.Context;
 import android.database.DatabaseErrorHandler;

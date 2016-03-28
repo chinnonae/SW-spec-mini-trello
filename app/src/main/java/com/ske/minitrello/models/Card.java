@@ -19,6 +19,11 @@ public class Card implements Serializable {
         private DBColumn(String colName){
             this.colName = colName;
         }
+
+
+        public String toString(){
+            return colName;
+        }
     }
 
 
