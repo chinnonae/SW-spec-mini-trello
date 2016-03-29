@@ -17,7 +17,7 @@ public class Comment implements Serializable {
         createdTime = System.currentTimeMillis();
     }
 
-    public Comment(String content, long createdTime){
+    public Comment(String content, long createdTime) {
         this.content = content;
         this.createdTime = createdTime;
     }

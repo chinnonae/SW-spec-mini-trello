@@ -29,11 +29,13 @@ import java.util.Observer;
 
 public class CardListFragment extends Fragment implements Observer {
 
+    private int listPosition;
+
     private CardList cardList;
     private List<Card> cards;
-    private CardAdapter cardAdapter;
+
     private RecyclerView recyclerView;
-    private int listPosition;
+    private CardAdapter cardAdapter;
 
     public CardListFragment() {
     }
@@ -77,16 +79,13 @@ public class CardListFragment extends Fragment implements Observer {
 
         ImageView addButton = (ImageView)rootView.findViewById(R.id.add_button);
         ImageView deleteButton = (ImageView)rootView.findViewById(R.id.delete_list_button);
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddCardDialog acd = new AddCardDialog();
-                recyclerView.getLayoutManager().scrollToPosition(cards.size() - 1);
-                acd.addObserver(CardListFragment.this);
-                acd.showDialog(getActivity(), listPosition);
+                showAddListDialog();
             }
         });
-
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,9 +103,14 @@ public class CardListFragment extends Fragment implements Observer {
         recyclerView.getLayoutManager().scrollToPosition(cards.size() - 1);
     }
 
+    private void showAddListDialog() {
+        AddCardDialog acd = new AddCardDialog();
+        recyclerView.getLayoutManager().scrollToPosition(cards.size() - 1);
+        acd.addObserver(CardListFragment.this);
+        acd.showDialog(getActivity(), listPosition);
+    }
 
-
-    public void showDeleteDialog() {
+    private void showDeleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Message");
         builder.setMessage("Remove this list?");

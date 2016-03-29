@@ -59,7 +59,7 @@ public class ShowCardInfoActivity extends AppCompatActivity implements Toolbar.O
     }
 
 
-    public void showDeleteDialog() {
+    private void showDeleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Message");
         builder.setMessage("Remove this card?");
@@ -85,8 +85,8 @@ public class ShowCardInfoActivity extends AppCompatActivity implements Toolbar.O
                     }
                 });
 
-        AlertDialog alert11 = builder.create();
-        alert11.show();
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override

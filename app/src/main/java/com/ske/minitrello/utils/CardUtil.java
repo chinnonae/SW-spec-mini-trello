@@ -23,7 +23,6 @@ public class CardUtil {
         viewPager = pager;
     }
 
-
     public static void renameCard(Card card, String name) {
         CardKeeper.getInstance().renameCard(card, name);
         cardAdapter.notifyDataSetChanged();
@@ -39,7 +38,7 @@ public class CardUtil {
         cardAdapter.notifyItemRemoved(position);
     }
 
-    public static void deleteCardList(CardList cardList) {
+    public static void deleteCardList(CardList cardList, int position) {
         CardKeeper.getInstance().deleteCardList(cardList);
     }
 
