@@ -10,6 +10,7 @@ public class Card implements Serializable {
     private int id;
     private String name;
     private String description;
+    private long createdTime; // TODO: Add to database later
     private List<Comment> comments;
 
     public enum DBColumn{
@@ -28,24 +29,21 @@ public class Card implements Serializable {
 
 
     public Card(String name) {
+        id = -1;
         this.name = name;
         description = "";
         comments = new ArrayList<Comment>();
-        id = -1;
+        createdTime = System.currentTimeMillis();
     }
 
     public Card(String name, String description) {
-        this.name = name;
+        this(name);
         this.description = description;
-        comments = new ArrayList<Comment>();
-        id = -1;
     }
 
     public Card(String name, String description, List<Comment> comments) {
         this(name, description);
         this.comments = comments;
-        this.id = -1;
-
     }
 
     public Card(String name, String description, List<Comment> comments ,int id){
@@ -96,10 +94,6 @@ public class Card implements Serializable {
 
     public int getId(){ return id; }
 
-    @Override
-    public String toString() {
-        return "Card name: " + name + "\nDescription: " + description + "\n";
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -115,5 +109,10 @@ public class Card implements Serializable {
     @Override
     public int hashCode() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Card name: " + name + "\nDescription: " + description + "\n";
     }
 }

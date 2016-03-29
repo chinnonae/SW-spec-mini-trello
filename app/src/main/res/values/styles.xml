@@ -15,6 +15,7 @@
     <style name="MainToolbar">
         <item name="theme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="android:background">?colorPrimary</item>
+        <item name="android:elevation">4dp</item>
     </style>
 
     <style name="CardInfoToolbar">

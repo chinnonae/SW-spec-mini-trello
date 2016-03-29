@@ -1,6 +1,5 @@
 package com.ske.minitrello.activities;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,7 +34,6 @@ public class CardListFragment extends Fragment implements Observer {
     private CardAdapter cardAdapter;
     private RecyclerView recyclerView;
     private int listPosition;
-    Context context;
 
     public CardListFragment() {
     }
@@ -66,9 +64,7 @@ public class CardListFragment extends Fragment implements Observer {
         recyclerView = (RecyclerView)rootView.findViewById(R.id.card_recyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
 
-        context = getContext();
-
-        cardAdapter = new CardAdapter(cards, new ClickAction());
+        cardAdapter = new CardAdapter(cards, new CardClickAction());
         CardUtil.setCardAdapter(cardAdapter);
 
         recyclerView.setLayoutManager(llm);
@@ -84,11 +80,10 @@ public class CardListFragment extends Fragment implements Observer {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int position = getArguments().getInt("position");
                 AddCardDialog acd = new AddCardDialog();
                 recyclerView.getLayoutManager().scrollToPosition(cards.size() - 1);
                 acd.addObserver(CardListFragment.this);
-                acd.showDialog(getActivity(), position);
+                acd.showDialog(getActivity(), listPosition);
             }
         });
 
@@ -109,16 +104,7 @@ public class CardListFragment extends Fragment implements Observer {
         recyclerView.getLayoutManager().scrollToPosition(cards.size() - 1);
     }
 
-    class ClickAction implements CardItemClickListener {
-        @Override
-        public void onItemClick(View v, int position) {
-            Intent intent = new Intent(context, ShowCardInfoActivity.class);
-            //CardUtil.setCard(cardList.getCards().get(position));
-            intent.putExtra("card position", position);
-            intent.putExtra("list position", listPosition);
-            startActivity(intent);
-        }
-    }
+
 
     public void showDeleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -145,6 +131,17 @@ public class CardListFragment extends Fragment implements Observer {
 
         AlertDialog alert11 = builder.create();
         alert11.show();
+    }
+
+    private class CardClickAction implements CardItemClickListener {
+
+        @Override
+        public void onItemClick(View v, int position) {
+            Intent intent = new Intent(getContext(), ShowCardInfoActivity.class);
+            intent.putExtra("card position", position);
+            intent.putExtra("list position", listPosition);
+            startActivity(intent);
+        }
     }
 
 

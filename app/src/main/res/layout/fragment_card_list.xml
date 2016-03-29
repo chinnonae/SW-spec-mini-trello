@@ -21,7 +21,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/relativeLayout">
+                android:id="@+id/relativeLayout"
+                android:elevation="2dp">
 
                 <TextView
                     android:id="@+id/cardlist_title"
