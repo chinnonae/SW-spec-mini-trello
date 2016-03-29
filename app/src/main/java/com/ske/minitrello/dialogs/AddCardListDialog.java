@@ -8,14 +8,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ske.minitrello.R;
-import com.ske.minitrello.models.CardKeeper;
 import com.ske.minitrello.models.CardList;
+import com.ske.minitrello.controllers.CardController;
 
 
-import java.util.Observable;
-
-
-public class AddCardListDialog extends Observable {
+public class AddCardListDialog {
 
     EditText listTitle;
 
@@ -35,11 +32,7 @@ public class AddCardListDialog extends Observable {
             public void onClick(View v) {
 
                 CardList newList = new CardList(listTitle.getText().toString());
-                CardKeeper.getInstance().addCardList(newList);
-
-                setChanged();
-                notifyObservers();
-
+                CardController.addCardList(newList);
                 dialog.dismiss();
             }
         });

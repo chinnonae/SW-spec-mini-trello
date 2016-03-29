@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ske.minitrello.R;
-import com.ske.minitrello.utils.CardUtil;
+import com.ske.minitrello.controllers.CardController;
 import com.ske.minitrello.views.adapters.CardAdapter;
 import com.ske.minitrello.views.adapters.CardItemClickListener;
 import com.ske.minitrello.dialogs.AddCardDialog;
@@ -24,10 +25,8 @@ import com.ske.minitrello.models.CardKeeper;
 import com.ske.minitrello.models.CardList;
 
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
-public class CardListFragment extends Fragment implements Observer {
+public class CardListFragment extends Fragment {
 
     private int listPosition;
 
@@ -51,10 +50,6 @@ public class CardListFragment extends Fragment implements Observer {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        listPosition = getArguments().getInt("position");
-        cardList = CardKeeper.getInstance().getLists().get(listPosition);
-        cards = cardList.getCards();
     }
 
     @Override
@@ -63,11 +58,13 @@ public class CardListFragment extends Fragment implements Observer {
 
         View rootView = inflater.inflate(R.layout.fragment_card_list, container, false);
 
-        recyclerView = (RecyclerView)rootView.findViewById(R.id.card_recyclerView);
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        listPosition = getArguments().getInt("position");
+        cardList = CardKeeper.getInstance().getLists().get(listPosition);
+        cards = cardList.getCards();
 
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        recyclerView = (RecyclerView)rootView.findViewById(R.id.card_recyclerView);
         cardAdapter = new CardAdapter(cards, new CardClickAction());
-        CardUtil.setCardAdapter(cardAdapter);
 
         recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);
@@ -96,17 +93,15 @@ public class CardListFragment extends Fragment implements Observer {
         return rootView;
     }
 
-
-    @Override
-    public void update(Observable observable, Object data) {
-        cardAdapter.notifyItemInserted(cards.size() - 1);
-        recyclerView.getLayoutManager().scrollToPosition(cards.size() - 1);
+    public void bindToController() {
+        CardController.setCardAdapter(cardAdapter);
+        CardController.setRecyclerView(recyclerView);
     }
+
 
     private void showAddListDialog() {
         AddCardDialog acd = new AddCardDialog();
         recyclerView.getLayoutManager().scrollToPosition(cards.size() - 1);
-        acd.addObserver(CardListFragment.this);
         acd.showDialog(getActivity(), listPosition);
     }
 
@@ -120,7 +115,8 @@ public class CardListFragment extends Fragment implements Observer {
                 "Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        ((MainActivity)getActivity()).delete(cardList);
+//                        ((MainActivity)getActivity()).delete(cardList);
+                        CardController.deleteCardList(cardList);
                         dialog.cancel();
                     }
                 });
@@ -133,8 +129,8 @@ public class CardListFragment extends Fragment implements Observer {
                     }
                 });
 
-        AlertDialog alert11 = builder.create();
-        alert11.show();
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private class CardClickAction implements CardItemClickListener {

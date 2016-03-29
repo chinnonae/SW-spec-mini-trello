@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.ske.minitrello.R;
-import com.ske.minitrello.utils.CardUtil;
+import com.ske.minitrello.controllers.CardController;
 import com.ske.minitrello.views.adapters.CommentAdapter;
 import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.CardKeeper;
@@ -71,7 +71,7 @@ public class ShowCardInfoActivity extends AppCompatActivity implements Toolbar.O
                     public void onClick(DialogInterface dialog, int id) {
                         // TODO implement card removal
                         //CardKeeper.getInstance().deleteCard(card);
-                        CardUtil.deleteCard(card, cardPosition);
+                        CardController.deleteCard(card, cardPosition);
                         dialog.cancel();
                         finish();
                     }

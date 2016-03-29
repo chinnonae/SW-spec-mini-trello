@@ -11,10 +11,9 @@ import com.ske.minitrello.R;
 import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.CardKeeper;
 import com.ske.minitrello.models.CardList;
+import com.ske.minitrello.controllers.CardController;
 
-import java.util.Observable;
-
-public class AddCardDialog extends Observable {
+public class AddCardDialog {
 
     EditText cardTitle;
     EditText cardDesc;
@@ -37,10 +36,8 @@ public class AddCardDialog extends Observable {
 
                 Card newCard = new Card(cardTitle.getText().toString(), cardDesc.getText().toString());
                 CardList cardList = CardKeeper.getInstance().getLists().get(cardListPosition);
-                CardKeeper.getInstance().addCardToCardList(newCard, cardList);
 
-                setChanged();
-                notifyObservers();
+                CardController.addCard(newCard, cardList);
 
                 dialog.dismiss();
             }
