@@ -1,16 +1,13 @@
 package com.ske.minitrello.views.adapters;
 
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ske.minitrello.R;
-import com.ske.minitrello.activities.ShowCardInfoActivity;
 import com.ske.minitrello.models.Card;
 
 import java.util.List;
@@ -23,11 +20,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     public CardAdapter(List<Card> cards, CardItemClickListener listener) {
         this.cards = cards;
         this.listener = listener;
-    }
-
-    public void remove(int position){
-        cards.remove(position);
-        notifyItemRemoved(position);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

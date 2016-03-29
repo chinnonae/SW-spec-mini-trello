@@ -23,4 +23,6 @@ public class CardListPagerAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return CardKeeper.getInstance().getSize();
     }
+
+
 }
