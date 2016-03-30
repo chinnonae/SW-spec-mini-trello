@@ -15,30 +15,24 @@ import com.ske.minitrello.models.CardList;
 
 
 
-public class CardInfoFragment extends Fragment {
+public class DescriptionFragment extends Fragment {
 
     Card card;
-    CardList cardList;
-
-    EditText cardTitle;
     TextView cardDescription;
 
-    public CardInfoFragment(CardList cardList, Card card) {
+    public DescriptionFragment(Card card) {
         this.card = card;
-        this.cardList = cardList;
     }
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_card_info, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_card_description, container, false);
 
-        cardTitle = (EditText) rootView.findViewById(R.id.card_dialog_title);
         cardDescription = (TextView) rootView.findViewById(R.id.card_dialog_description);
 
-        cardTitle.setText(card.getName());
         cardDescription.setText(card.getDescription());
-
 
         return rootView;
     }

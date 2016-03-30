@@ -20,10 +20,6 @@ public class CardListPagerAdapter extends FragmentStatePagerAdapter {
         fragmentMap = new HashMap<>();
     }
 
-    public void removeItem(Fragment fragment) {
-        fragmentMap.remove(fragment);
-    }
-
     @Override
     public int getItemPosition(Object object) {
 //        Set<Integer> keys = fragmentMap.keySet();
@@ -35,6 +31,7 @@ public class CardListPagerAdapter extends FragmentStatePagerAdapter {
         return POSITION_NONE;
 
     }
+
 
     @Override
     public Fragment getItem(int position) {

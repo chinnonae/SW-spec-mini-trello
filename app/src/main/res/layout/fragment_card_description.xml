@@ -1,0 +1,18 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Write description here.."
+        android:id="@+id/card_dialog_description"
+        android:layout_centerHorizontal="true"
+        android:padding="20dp"
+        android:textSize="14sp" />
+
+
+</RelativeLayout>

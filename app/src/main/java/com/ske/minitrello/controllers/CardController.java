@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Supports various interaction of cards, also updates the views.
+ * Handles various interaction of cards, also updates the views associated with it.
  */
 public class CardController {
 

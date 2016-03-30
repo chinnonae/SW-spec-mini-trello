@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ShowCardInfoActivity" />
+        <activity android:name=".activities.CardInfoActivity" />
     </application>
 
 </manifest>

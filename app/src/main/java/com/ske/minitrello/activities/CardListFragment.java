@@ -1,6 +1,5 @@
 package com.ske.minitrello.activities;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -145,7 +144,7 @@ public class CardListFragment extends Fragment {
 
         @Override
         public void onItemClick(View v, int position) {
-            Intent intent = new Intent(getContext(), ShowCardInfoActivity.class);
+            Intent intent = new Intent(getContext(), CardInfoActivity.class);
             intent.putExtra("card position", position);
             intent.putExtra("list position", listPosition);
             startActivity(intent);

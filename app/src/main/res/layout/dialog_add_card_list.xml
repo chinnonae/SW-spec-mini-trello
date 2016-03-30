@@ -35,7 +35,6 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_below="@+id/list_title_label"
-                android:backgroundTint="@color/colorPrimary"
                 android:textSize="14sp" />
 
         </android.support.design.widget.TextInputLayout>

@@ -35,7 +35,6 @@
                 android:hint="Title"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:backgroundTint="@color/colorPrimary"
                 android:textSize="14sp" />
 
         </android.support.design.widget.TextInputLayout>
@@ -54,7 +53,6 @@
                 android:hint="Description"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:backgroundTint="@color/colorPrimary"
                 android:textSize="14sp" />
 
         </android.support.design.widget.TextInputLayout>
