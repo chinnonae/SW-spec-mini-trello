@@ -55,7 +55,6 @@ public class ShowCardInfoActivity extends AppCompatActivity implements Toolbar.O
                     .commit();
         }
 
-
     }
 
 
@@ -69,8 +68,6 @@ public class ShowCardInfoActivity extends AppCompatActivity implements Toolbar.O
                 "Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // TODO implement card removal
-                        //CardKeeper.getInstance().deleteCard(card);
                         CardController.deleteCard(card, cardPosition);
                         dialog.cancel();
                         finish();

@@ -37,7 +37,6 @@ public class CardInfoFragment extends Fragment {
         cardDescription = (TextView) rootView.findViewById(R.id.card_dialog_description);
 
         cardTitle.setText(card.getName());
-        cardTitle.setEnabled(false);
         cardDescription.setText(card.getDescription());
 
 

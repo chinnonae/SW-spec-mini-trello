@@ -3,32 +3,34 @@ package com.ske.minitrello.views.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.View;
 
 import com.ske.minitrello.activities.CardListFragment;
 import com.ske.minitrello.models.CardKeeper;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.HashMap;
+import java.util.Map;
 
 public class CardListPagerAdapter extends FragmentStatePagerAdapter {
 
-    private List<Fragment> fragmentList;
+    private Map<Integer, Fragment> fragmentMap;
 
     public CardListPagerAdapter(FragmentManager fm) {
         super(fm);
-        fragmentList = new ArrayList<>();
+
+        fragmentMap = new HashMap<>();
     }
 
     public void removeItem(Fragment fragment) {
-        fragmentList.remove(fragment);
+        fragmentMap.remove(fragment);
     }
 
     @Override
     public int getItemPosition(Object object) {
-        if (fragmentList.contains((Fragment) object) )
-            return fragmentList.indexOf((Fragment) object);
+//        Set<Integer> keys = fragmentMap.keySet();
+//        if (fragmentMap.containsValue((Fragment)object))
+//            return fragmentMap.
+//        if (fragmentMap.contains((Fragment) object) )
+//            return fragmentMap.indexOf((Fragment) object);
 
         return POSITION_NONE;
 
@@ -37,13 +39,15 @@ public class CardListPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        if (position >= fragmentList.size()) {
-            Fragment fragment = CardListFragment.newInstance(position);
-            fragmentList.add(fragment);
+        if (position >= fragmentMap.size()) {
+            CardListFragment fragment = CardListFragment.newInstance(position);
+            fragmentMap.put(position, fragment);
             return fragment;
         }
 
-        return fragmentList.get(position);
+//        return CardListFragment.newInstance(position);
+
+        return fragmentMap.get(position);
     }
 
     @Override

@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         // Set up the ViewPager with the sections adapter.
         viewPager = (ViewPager) findViewById(R.id.container);
         viewPager.setAdapter(pagerAdapter);
-        viewPager.addOnPageChangeListener(new PageChangeListener());
+        PageChangeListener listener = new PageChangeListener();
+        viewPager.addOnPageChangeListener(listener);
         CardController.setViewPager(viewPager);
         CardController.setPagerAdapter(pagerAdapter);
 
@@ -66,17 +67,6 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         return true;
     }
 
-//    public void delete(CardList cardList) {
-//        int position = CardKeeper.getInstance().getLists().indexOf(cardList);
-//        CardKeeper.getInstance().deleteCardList(cardList);
-//        CardListFragment fragment = (CardListFragment)pagerAdapter.getItem(viewPager.getCurrentItem());
-////        pagerAdapter = new CardListPagerAdapter(getSupportFragmentManager());
-//        pagerAdapter.removeItem(fragment);
-//        pagerAdapter.notifyDataSetChanged();
-////        viewPager.setAdapter(pagerAdapter);
-//        viewPager.setCurrentItem(position - 1);
-
-    //}
 
     private class PageChangeListener extends ViewPager.SimpleOnPageChangeListener {
 

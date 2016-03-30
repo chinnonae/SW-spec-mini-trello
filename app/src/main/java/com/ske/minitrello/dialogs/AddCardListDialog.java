@@ -30,7 +30,6 @@ public class AddCardListDialog {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 CardList newList = new CardList(listTitle.getText().toString());
                 CardController.addCardList(newList);
                 dialog.dismiss();

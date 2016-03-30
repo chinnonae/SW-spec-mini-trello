@@ -1,5 +1,6 @@
 package com.ske.minitrello.activities;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,7 +33,7 @@ public class CardListFragment extends Fragment {
 
     private CardList cardList;
     private List<Card> cards;
-
+    private boolean isBinded = false;
     private RecyclerView recyclerView;
     private CardAdapter cardAdapter;
 
@@ -47,9 +48,14 @@ public class CardListFragment extends Fragment {
         return fragment;
     }
 
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.e("onViewCreated", "After view created " + listPosition);
+
+        if (CardController.getCurrentPage() == listPosition)
+            bindToController();
     }
 
     @Override
@@ -58,9 +64,13 @@ public class CardListFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_card_list, container, false);
 
+        Log.e("onViewCreated", "On view created");
+
         listPosition = getArguments().getInt("position");
         cardList = CardKeeper.getInstance().getLists().get(listPosition);
         cards = cardList.getCards();
+
+        Log.e("CardListFragment" , "Hello " + listPosition);
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView = (RecyclerView)rootView.findViewById(R.id.card_recyclerView);
@@ -101,7 +111,6 @@ public class CardListFragment extends Fragment {
 
     private void showAddListDialog() {
         AddCardDialog acd = new AddCardDialog();
-        recyclerView.getLayoutManager().scrollToPosition(cards.size() - 1);
         acd.showDialog(getActivity(), listPosition);
     }
 
@@ -115,7 +124,6 @@ public class CardListFragment extends Fragment {
                 "Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-//                        ((MainActivity)getActivity()).delete(cardList);
                         CardController.deleteCardList(cardList);
                         dialog.cancel();
                     }
@@ -143,6 +151,5 @@ public class CardListFragment extends Fragment {
             startActivity(intent);
         }
     }
-
 
 }
