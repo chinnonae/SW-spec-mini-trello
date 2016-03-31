@@ -154,4 +154,10 @@ public class CardKeeper {
 
         dbHandler.updateCard(card.getId(), Card.DBColumn.name.toString() , newName);
     }
+
+    public void editCardDescription(Card card, String description){
+        card.setDescription(description);;
+
+	dbHandler.updateCard(card.getId(), Card.DBColumn.description.toString(), description);
+    }
 }
