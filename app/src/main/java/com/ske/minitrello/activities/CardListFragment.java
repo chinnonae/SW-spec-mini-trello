@@ -131,7 +131,7 @@ public class CardListFragment extends Fragment {
                 "Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        CardController.deleteCardList(cardList);
+                        CardController.removeCardList(cardList);
                         dialog.cancel();
                     }
                 });

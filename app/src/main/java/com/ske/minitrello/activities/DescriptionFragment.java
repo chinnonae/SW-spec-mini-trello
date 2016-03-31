@@ -6,13 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ske.minitrello.R;
 import com.ske.minitrello.models.Card;
-import com.ske.minitrello.models.CardList;
-
 
 
 public class DescriptionFragment extends Fragment {
@@ -30,7 +27,7 @@ public class DescriptionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_card_description, container, false);
 
-        cardDescription = (TextView) rootView.findViewById(R.id.card_dialog_description);
+        cardDescription = (TextView) rootView.findViewById(R.id.card_info_description);
 
         cardDescription.setText(card.getDescription());
 

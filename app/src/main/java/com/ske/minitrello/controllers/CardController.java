@@ -71,23 +71,28 @@ public class CardController {
         viewPager.setCurrentItem(pagerAdapter.getCount() - 1);
     }
 
-    public static void renameCard(Card card, String name) {
+    public static void editCardTitle(Card card, String name) {
         CardKeeper.getInstance().renameCard(card, name);
         cardAdapter.notifyDataSetChanged();
     }
 
-    public static void renameCardList(CardList cardList, String name) {
+    public static void editCardDescription(Card card, String desc) {
+        CardKeeper.getInstance().editCardDescription(card, desc);
+        cardAdapter.notifyDataSetChanged();
+    }
+
+    public static void editCardListTitle(CardList cardList, String name) {
         CardKeeper.getInstance().renameCardList(cardList, name);
         viewPager.getAdapter().notifyDataSetChanged();
     }
 
-    public static void deleteCard(Card card, int position) {
+    public static void removeCard(Card card, int position) {
         CardKeeper.getInstance().deleteCard(card);
         Log.i(className, "Removed via adapter - " + cardAdapter.toString());
         cardAdapter.notifyItemRemoved(position);
     }
 
-    public static void deleteCardList(CardList cardList) {
+    public static void removeCardList(CardList cardList) {
         int position = CardKeeper.getInstance().getLists().indexOf(cardList);
         CardKeeper.getInstance().deleteCardList(cardList);
         pagerAdapter.notifyDataSetChanged();

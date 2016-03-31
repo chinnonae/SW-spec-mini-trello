@@ -41,7 +41,7 @@ public class EditCardListDialog {
             @Override
             public void onClick(View v) {
                 String newTitle = cardListTitle.getText().toString();
-                CardController.renameCardList(cardList, newTitle);
+                CardController.editCardListTitle(cardList, newTitle);
                 dialog.dismiss();
             }
         });

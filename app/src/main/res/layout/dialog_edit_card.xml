@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:focusable="true"
     android:focusableInTouchMode="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="24dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="24dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Edit card title"
-            android:id="@+id/list_title_label"
-            android:layout_alignParentStart="true"
+            android:text="Edit Card"
             android:textSize="20sp"
             android:layout_marginBottom="16dp" />
 
@@ -30,11 +29,30 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/edit_card_title"
+                android:id="@+id/card_title_input"
+                android:layout_below="@+id/title_label"
+                android:layout_alignParentStart="true"
                 android:hint="Title"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_below="@+id/list_title_label"
+                android:textSize="14sp" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_card_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/card_desc_input"
+                android:layout_below="@+id/desc_label"
+                android:layout_alignParentStart="true"
+                android:hint="Description"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:textSize="14sp" />
 
         </android.support.design.widget.TextInputLayout>
@@ -43,11 +61,10 @@
     </LinearLayout>
 
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:layout_below="@+id/input_layout_card_title"
+        android:layout_below="@+id/card_desc_input"
         android:layout_centerHorizontal="true">
 
         <TextView
@@ -55,13 +72,14 @@
             android:layout_height="wrap_content"
             android:text="@string/confirm_button"
             android:id="@+id/dialog_confirm_btn"
+            android:gravity="center_vertical|center_horizontal"
             android:textColor="@color/colorPrimary"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="8dp"
             android:textStyle="bold"
+            android:layout_centerVertical="true"
             android:textSize="14sp"
             android:textAllCaps="true"
-            android:layout_centerVertical="true"
+            android:theme="@style/DialogButton"
             style="@style/Widget.AppCompat.Button.Borderless"/>
 
         <TextView
@@ -70,11 +88,12 @@
             android:text="@string/cancel_button"
             android:id="@+id/dialog_cancle_btn"
             android:textColor="@color/colorPrimary"
+            android:layout_toStartOf="@+id/dialog_confirm_btn"
             android:layout_marginRight="8dp"
+            android:layout_centerVertical="true"
             android:textSize="14sp"
             android:textAllCaps="true"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/dialog_confirm_btn"
+            android:theme="@style/DialogButton"
             style="@style/Widget.AppCompat.Button.Borderless"/>
 
     </RelativeLayout>

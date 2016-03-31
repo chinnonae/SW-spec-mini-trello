@@ -14,9 +14,8 @@ import android.widget.TextView;
 import com.github.clans.fab.FloatingActionButton;
 import com.ske.minitrello.R;
 import com.ske.minitrello.controllers.CardController;
-import com.ske.minitrello.controllers.CommentController;
 import com.ske.minitrello.dialogs.AddCommentDialog;
-import com.ske.minitrello.dialogs.EditCardTitleDialog;
+import com.ske.minitrello.dialogs.EditCardDialog;
 import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.CardKeeper;
 import com.ske.minitrello.models.CardList;
@@ -34,8 +33,6 @@ public class CardInfoActivity extends AppCompatActivity implements Toolbar.OnMen
     TextView cardTitle;
     FloatingActionButton addFab;
     FloatingActionButton editFab;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,19 +66,16 @@ public class CardInfoActivity extends AppCompatActivity implements Toolbar.OnMen
         });
 
         editFab = (FloatingActionButton) findViewById(R.id.edit_fab);
-
-
-        cardTitle = (TextView) findViewById(R.id.card_title);
-        cardTitle.setText(card.getName());
-
-        cardTitle.setOnClickListener(new View.OnClickListener() {
+        editFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditCardTitleDialog dialog = new EditCardTitleDialog(card, CardInfoActivity.this);
+                EditCardDialog dialog = new EditCardDialog(card, CardInfoActivity.this);
                 dialog.show();
             }
         });
 
+        cardTitle = (TextView) findViewById(R.id.card_title);
+        cardTitle.setText(card.getName());
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(new CardInfoPagerAdapter(getSupportFragmentManager(),
@@ -128,7 +122,7 @@ public class CardInfoActivity extends AppCompatActivity implements Toolbar.OnMen
                 "Yes",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        CardController.deleteCard(card, cardPosition);
+                        CardController.removeCard(card, cardPosition);
                         dialog.cancel();
                         finish();
                     }
