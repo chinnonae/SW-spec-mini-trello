@@ -25,9 +25,7 @@ import com.ske.minitrello.views.adapters.CommentItemClickListener;
 
 import java.util.List;
 
-/**
- * Created by Peter on 3/30/2016 AD.
- */
+
 public class CommentFragment extends Fragment {
 
     Card card;
@@ -64,7 +62,7 @@ public class CommentFragment extends Fragment {
     private class ClickAction implements CommentItemClickListener {
 
         @Override
-        public void onItemClick(View v, int position) {
+        public void onLongClick(View v, int position) {
             Comment comment = card.getComments().get(position);
             showDeleteDialog(comment);
         }

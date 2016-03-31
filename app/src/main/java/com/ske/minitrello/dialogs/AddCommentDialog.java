@@ -14,9 +14,7 @@ import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.CardList;
 import com.ske.minitrello.models.Comment;
 
-/**
- * Created by Peter on 3/31/2016 AD.
- */
+
 public class AddCommentDialog {
 
     Card card;

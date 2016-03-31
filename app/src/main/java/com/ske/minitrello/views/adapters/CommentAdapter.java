@@ -1,12 +1,10 @@
 package com.ske.minitrello.views.adapters;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ske.minitrello.R;
 import com.ske.minitrello.models.Comment;
@@ -44,12 +42,15 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         final ViewHolder vh = new ViewHolder(v);
 
-        v.setOnClickListener(new View.OnClickListener() {
+        v.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
-                listener.onItemClick(v, vh.getAdapterPosition());
+            public boolean onLongClick(View v) {
+                listener.onLongClick(v, vh.getAdapterPosition());
+                return false;
             }
         });
+
+        v.setLongClickable(true);
 
         return vh;
     }

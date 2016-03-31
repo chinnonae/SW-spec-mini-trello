@@ -4,8 +4,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:padding="1dp"
     android:background="?android:attr/selectableItemBackground"
     >
 
@@ -20,8 +21,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="5dp"
-            android:background="?android:attr/selectableItemBackground">
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/comment_creation_time"

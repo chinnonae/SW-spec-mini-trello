@@ -5,9 +5,7 @@ import com.ske.minitrello.models.CardKeeper;
 import com.ske.minitrello.models.Comment;
 import com.ske.minitrello.views.adapters.CommentAdapter;
 
-/**
- * Created by Peter on 3/31/2016 AD.
- */
+
 public class CommentController {
 
     static CommentAdapter adapter;
