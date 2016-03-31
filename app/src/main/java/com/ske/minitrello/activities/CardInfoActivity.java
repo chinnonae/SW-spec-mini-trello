@@ -33,6 +33,8 @@ public class CardInfoActivity extends AppCompatActivity implements Toolbar.OnMen
     TextView cardTitle;
     FloatingActionButton fab;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +57,7 @@ public class CardInfoActivity extends AppCompatActivity implements Toolbar.OnMen
         });
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.hide(true);
+        fab.setVisibility(fab.INVISIBLE);
 
         cardTitle = (TextView) findViewById(R.id.card_title);
         cardTitle.setText(card.getName());
