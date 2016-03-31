@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ske.minitrello.R;
+import com.ske.minitrello.controllers.CardController;
+import com.ske.minitrello.controllers.CommentController;
 import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.Comment;
 import com.ske.minitrello.views.adapters.CommentAdapter;
@@ -41,13 +43,14 @@ public class CommentFragment extends Fragment {
 
         comments = card.getComments();
         commentAdapter = new CommentAdapter(comments);
-        comments.add(new Comment("Hello"));
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.comment_recyclerview);
         recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(commentAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        CommentController.setAdapter(commentAdapter);
 
         return rootView;
     }

@@ -9,12 +9,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.ske.minitrello.R;
 import com.ske.minitrello.controllers.CardController;
+import com.ske.minitrello.controllers.CommentController;
+import com.ske.minitrello.dialogs.AddCommentDialog;
 import com.ske.minitrello.dialogs.EditCardTitleDialog;
 import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.CardKeeper;
@@ -31,7 +32,8 @@ public class CardInfoActivity extends AppCompatActivity implements Toolbar.OnMen
     TabLayout tabLayout;
 
     TextView cardTitle;
-    FloatingActionButton fab;
+    FloatingActionButton addFab;
+    FloatingActionButton editFab;
 
 
 
@@ -56,8 +58,18 @@ public class CardInfoActivity extends AppCompatActivity implements Toolbar.OnMen
             }
         });
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setVisibility(fab.INVISIBLE);
+        addFab = (FloatingActionButton) findViewById(R.id.add_fab);
+        addFab.setVisibility(addFab.INVISIBLE);
+        addFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddCommentDialog dialog = new AddCommentDialog(card, CardInfoActivity.this);
+                dialog.show();
+            }
+        });
+
+        editFab = (FloatingActionButton) findViewById(R.id.edit_fab);
+
 
         cardTitle = (TextView) findViewById(R.id.card_title);
         cardTitle.setText(card.getName());
@@ -78,8 +90,14 @@ public class CardInfoActivity extends AppCompatActivity implements Toolbar.OnMen
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                if (position == 1) fab.show(true);
-                else fab.hide(true);
+                if (position == 0) {
+                    addFab.hide(true);
+                    editFab.show(true);
+                }
+                if (position == 1) {
+                    addFab.show(true);
+                    editFab.hide(true);
+                }
             }
         });
 
@@ -95,7 +113,6 @@ public class CardInfoActivity extends AppCompatActivity implements Toolbar.OnMen
             case R.id.action_remove_card:
                 showDeleteDialog();
                 return true;
-
         }
 
         return true;

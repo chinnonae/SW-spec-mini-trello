@@ -158,6 +158,6 @@ public class CardKeeper {
     public void editCardDescription(Card card, String description){
         card.setDescription(description);;
 
-	dbHandler.updateCard(card.getId(), Card.DBColumn.description.toString(), description);
+	    dbHandler.updateCard(card.getId(), Card.DBColumn.description.toString(), description);
     }
 }

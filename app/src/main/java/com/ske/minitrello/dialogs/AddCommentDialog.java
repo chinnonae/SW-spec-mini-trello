@@ -9,39 +9,41 @@ import android.widget.TextView;
 
 import com.ske.minitrello.R;
 import com.ske.minitrello.controllers.CardController;
+import com.ske.minitrello.controllers.CommentController;
+import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.CardList;
+import com.ske.minitrello.models.Comment;
 
 /**
  * Created by Peter on 3/31/2016 AD.
  */
-public class EditCardListDialog {
+public class AddCommentDialog {
 
-    CardList cardList;
+    Card card;
     Activity activity;
 
-    EditText cardListTitle;
+    EditText commentMsg;
 
-    public EditCardListDialog(CardList cardList, Activity activity) {
-        this.cardList = cardList;
-        this.activity = activity;
+    public AddCommentDialog(Card card, Activity activity) {
+        this.card = card;
+        this.activity= activity;
     }
 
     public void show() {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().getAttributes().windowAnimations = R.style.AddDialogAnimation;
-        dialog.setContentView(R.layout.dialog_edit_cardlist);
+        dialog.setContentView(R.layout.dialog_add_comment);
 
-        cardListTitle = (EditText) dialog.findViewById(R.id.edit_cardlist_title);
-        cardListTitle.setText(cardList.getName());
+        commentMsg = (EditText) dialog.findViewById(R.id.edittext_comment);
 
         TextView confirmButton = (TextView) dialog.findViewById(R.id.dialog_confirm_btn);
         TextView cancelButton = (TextView) dialog.findViewById(R.id.dialog_cancle_btn);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String newTitle = cardListTitle.getText().toString();
-                CardController.renameCardList(cardList, newTitle);
+                Comment comment = new Comment(commentMsg.getText().toString());
+                CommentController.addComment(comment, card);
                 dialog.dismiss();
             }
         });
@@ -53,8 +55,5 @@ public class EditCardListDialog {
         });
 
         dialog.show();
-
-
-
     }
 }
