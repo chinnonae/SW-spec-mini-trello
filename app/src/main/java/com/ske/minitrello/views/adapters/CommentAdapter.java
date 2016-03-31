@@ -1,10 +1,12 @@
 package com.ske.minitrello.views.adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ske.minitrello.R;
 import com.ske.minitrello.models.Comment;
@@ -14,9 +16,11 @@ import java.util.List;
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
     private List<Comment> comments;
+    private CommentItemClickListener listener;
 
-    public CommentAdapter(List<Comment> comments) {
+    public CommentAdapter(List<Comment> comments, CommentItemClickListener listener) {
         this.comments = comments;
+        this.listener = listener;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -38,7 +42,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.comment_list_item, parent, false);
 
-        ViewHolder vh = new ViewHolder(v);
+        final ViewHolder vh = new ViewHolder(v);
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(v, vh.getAdapterPosition());
+            }
+        });
 
         return vh;
     }
