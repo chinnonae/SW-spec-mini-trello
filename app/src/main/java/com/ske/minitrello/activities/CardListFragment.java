@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.ske.minitrello.R;
 import com.ske.minitrello.controllers.CardController;
+import com.ske.minitrello.dialogs.EditCardListDialog;
 import com.ske.minitrello.views.adapters.CardAdapter;
 import com.ske.minitrello.views.adapters.CardItemClickListener;
 import com.ske.minitrello.dialogs.AddCardDialog;
@@ -82,6 +83,13 @@ public class CardListFragment extends Fragment {
 
         TextView cardListTitle = (TextView)rootView.findViewById(R.id.cardlist_title);
         cardListTitle.setText(cardList.getName());
+        cardListTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditCardListDialog dialog = new EditCardListDialog(cardList, getActivity());
+                dialog.show();
+            }
+        });
 
         ImageView addButton = (ImageView)rootView.findViewById(R.id.add_button);
         ImageView deleteButton = (ImageView)rootView.findViewById(R.id.delete_list_button);
