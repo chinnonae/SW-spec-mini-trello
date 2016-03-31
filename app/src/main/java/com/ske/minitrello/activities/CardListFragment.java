@@ -32,7 +32,7 @@ public class CardListFragment extends Fragment {
 
     private CardList cardList;
     private List<Card> cards;
-    private boolean isBinded = false;
+
     private RecyclerView recyclerView;
     private CardAdapter cardAdapter;
 

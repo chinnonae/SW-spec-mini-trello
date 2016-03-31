@@ -1,5 +1,6 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -24,7 +25,7 @@
             android:padding="20dp"
             android:gravity="bottom">
 
-            <EditText
+            <TextView
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:text="Title"
@@ -34,8 +35,7 @@
                 android:textStyle="bold"
                 android:layout_alignParentStart="false"
                 android:padding="10dp"
-                android:background="@android:color/transparent"
-                android:focusable="false"/>
+                android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
         </LinearLayout>
 
@@ -63,17 +63,18 @@
     </LinearLayout>
 
 
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabmain"
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fab"
+        android:src="@drawable/ic_add_white_24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_add_white_24dp"
-        app:backgroundTint="@color/colorAccent"
         app:layout_anchor="@id/card_name_layout"
-        app:layout_anchorGravity="bottom|right|end"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginEnd="20dp"/>
+        app:layout_anchorGravity="bottom|right"
+        android:layout_marginRight="8dp"
+        fab:fab_colorNormal="@color/colorAccent"
+        fab:fab_colorPressed="@color/app_primary_pressed"
+        fab:fab_colorRipple="@color/app_ripple"
+        />
+
 
 </android.support.design.widget.CoordinatorLayout>

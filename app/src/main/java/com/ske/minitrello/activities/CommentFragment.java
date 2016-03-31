@@ -41,6 +41,7 @@ public class CommentFragment extends Fragment {
 
         comments = card.getComments();
         commentAdapter = new CommentAdapter(comments);
+        comments.add(new Comment("Hello"));
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.comment_recyclerview);
         recyclerView.setLayoutManager(llm);

@@ -10,9 +10,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.ske.minitrello.R;
 import com.ske.minitrello.controllers.CardController;
+import com.ske.minitrello.dialogs.EditCardTitleDialog;
 import com.ske.minitrello.models.Card;
 import com.ske.minitrello.models.CardKeeper;
 import com.ske.minitrello.models.CardList;
@@ -24,18 +27,23 @@ public class CardInfoActivity extends AppCompatActivity implements Toolbar.OnMen
     Card card;
     CardList cardList;
 
-    EditText cardTitle;
+    ViewPager viewPager;
+    TabLayout tabLayout;
 
+    TextView cardTitle;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_info);
 
+        // Get cards info
         cardPosition = getIntent().getIntExtra("card position", 0);
         cardList = CardKeeper.getInstance().getLists().get(getIntent().getIntExtra("list position", 0));
         card = cardList.getCards().get(cardPosition);
 
+        // Setup toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.card_info_toolbar);
         toolbar.inflateMenu(R.menu.menu_card_view);
         toolbar.setOnMenuItemClickListener(this);
@@ -46,20 +54,49 @@ public class CardInfoActivity extends AppCompatActivity implements Toolbar.OnMen
             }
         });
 
-        cardTitle = (EditText) findViewById(R.id.card_title);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.hide(true);
+
+        cardTitle = (TextView) findViewById(R.id.card_title);
         cardTitle.setText(card.getName());
 
-        //TODO View pager showing 2 fragments
+        cardTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditCardTitleDialog dialog = new EditCardTitleDialog(card, CardInfoActivity.this);
+                dialog.show();
+            }
+        });
 
-        // Get the ViewPager and set it's PagerAdapter so that it can display items
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(new CardInfoPagerAdapter(getSupportFragmentManager(),
                 CardInfoActivity.this, card));
+        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                if (position == 1) fab.show(true);
+                else fab.hide(true);
+            }
+        });
 
-        // Give the TabLayout the ViewPager
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+    }
+
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_remove_card:
+                showDeleteDialog();
+                return true;
+
+        }
+
+        return true;
     }
 
     private void showDeleteDialog() {
@@ -88,17 +125,5 @@ public class CardInfoActivity extends AppCompatActivity implements Toolbar.OnMen
 
         AlertDialog alert = builder.create();
         alert.show();
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_remove_card:
-                showDeleteDialog();
-                return true;
-
-        }
-
-        return true;
     }
 }

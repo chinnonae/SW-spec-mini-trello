@@ -13,7 +13,8 @@
         style="@style/MainToolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        app:title="@string/app_name"/>
+        app:title="@string/app_name"
+        app:titleTextColor="#ffffff"/>
 
 
     <android.support.v4.view.ViewPager
