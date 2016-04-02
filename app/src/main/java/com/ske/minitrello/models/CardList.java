@@ -10,6 +10,10 @@ public class CardList implements Serializable {
     private String name;
     private List<Card> cards;
 
+
+
+    private int id;
+
     public enum DBColumn{
         name("_name");
 
@@ -27,11 +31,25 @@ public class CardList implements Serializable {
     public CardList(String name) {
         this.name = name;
         cards = new ArrayList<Card>();
-
+        id = -1;
     }
 
     public CardList(String name, List<Card> cards) {
         this.name = name;
+        this.cards = cards;
+        id = -1;
+    }
+
+    public CardList(String name, int id){
+        this.name = name;
+        this.id = id;
+        cards = new ArrayList<Card>();
+
+    }
+
+    public CardList(String name, int id, List<Card> cards){
+        this.name = name;
+        this.id = id;
         this.cards = cards;
     }
 
@@ -69,5 +87,13 @@ public class CardList implements Serializable {
     @Override
     public int hashCode() {
         return name.hashCode();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

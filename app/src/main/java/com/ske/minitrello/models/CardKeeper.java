@@ -18,12 +18,18 @@ public class CardKeeper {
     private List<CardList> cardLists;
     /** Current new card id. */
     private static int cardId = 1000000;
+    /** Current new card list id. */
+    private static int listId = 1000000;
 
-    private SharedPreferences sharedPref;
-    private SharedPreferences.Editor prefEditor;
+    private SharedPreferences cardSharedPref;
+    private SharedPreferences.Editor cardPrefEditor;
+    private SharedPreferences listSharedPref;
+    private SharedPreferences.Editor listPrefEditor;
+
+
     private DBHandler dbHandler;
 
-    private Map<String, CardList> cardListMap;
+    private Map<Integer, CardList> cardListMap;
     private Map<Integer, Card> cardMap;
     private Map<Integer, CardList> cardParent;
     private Map<Comment, Card> commentToCardMap;
@@ -31,28 +37,39 @@ public class CardKeeper {
     private static CardKeeper instance;
 
     private CardKeeper(Context context){
-        cardListMap = new HashMap<String, CardList>();
+        cardListMap = new HashMap<Integer, CardList>();
         cardMap = new HashMap<Integer, Card>();
         cardParent = new HashMap<Integer, CardList>();
         commentToCardMap = new HashMap<Comment, Card>();
         dbHandler = new DBHandler(context);
 
-        sharedPref = context.getSharedPreferences("card_id", Context.MODE_PRIVATE);
-        prefEditor = sharedPref.edit();
-        if(sharedPref.getInt("currentID", -1) == -1){
-            prefEditor.putInt("currentID", cardId);
-            prefEditor.commit();
+        cardSharedPref = context.getSharedPreferences("card_id", Context.MODE_PRIVATE);
+        cardPrefEditor = cardSharedPref.edit();
+        if(cardSharedPref.getInt("currentID", -1) == -1){
+            cardPrefEditor.putInt("currentID", cardId);
+            cardPrefEditor.commit();
         }
         else{
-            cardId = sharedPref.getInt("currentID", -1);
+            cardId = cardSharedPref.getInt("currentID", -1);
         }
+
+        listSharedPref = context.getSharedPreferences("list_id", Context.MODE_PRIVATE);
+        listPrefEditor = listSharedPref.edit();
+        if(listSharedPref.getInt("currentID", -1) == -1){
+            listPrefEditor.putInt("currentID", cardId);
+            cardPrefEditor.commit();
+        }
+        else{
+            listId = cardSharedPref.getInt("currentID", -1);
+        }
+
         loadOnInit();
     }
 
     private void loadOnInit(){
         cardLists = dbHandler.loadCardLists();
         for(CardList cardList : cardLists){
-            cardListMap.put(cardList.getName(), cardList);
+            cardListMap.put(cardList.getId(), cardList);
             for(Card card : cardList.getCards()){
                 cardParent.put(card.getId(), cardList);
                 cardMap.put(card.getId(), card);
@@ -82,7 +99,11 @@ public class CardKeeper {
 
     public void addCardList(CardList cardList){
         cardLists.add(cardList);
-        cardListMap.put(cardList.getName(), cardList);
+        if(cardList.getId() < 0){
+            cardList.setId(listId);
+        }
+        cardListMap.put(cardList.getId(), cardList);
+
 
         dbHandler.insertCardList(cardList);
     }
@@ -99,8 +120,8 @@ public class CardKeeper {
         cardParent.put(card.getId(), cardList);
         cardMap.put(card.getId(), card);
 
-        prefEditor.putInt("currentID", ++cardId);
-        prefEditor.commit();
+        cardPrefEditor.putInt("currentID", ++cardId);
+        cardPrefEditor.commit();
     }
 
     public void addCommentToCard(Comment comment, Card card) {
@@ -132,7 +153,7 @@ public class CardKeeper {
     }
 
     public void deleteCardList(CardList cardList){
-        dbHandler.deleteCardList(cardList.getName());
+        dbHandler.deleteCardList(cardList.getId());
 
         while(!cardList.getCards().isEmpty()){
             deleteCard(cardList.getCards().get(0));
@@ -146,7 +167,7 @@ public class CardKeeper {
     public void renameCardList(CardList cardList, String newName){
         cardList.setName(newName);
 
-        dbHandler.updateCardList(cardList.getName(), CardList.DBColumn.name.toString(), newName);
+        dbHandler.updateCardList(cardList.getId(), CardList.DBColumn.name.toString(), newName);
     }
 
     public void renameCard(Card card, String newName){

@@ -76,18 +76,18 @@ public class DBHandler {
      * @return list of cards belong to a card list.
      */
     public List<Card> loadCards(CardList cardList){
-        return loadCards(cardList.getName());
+        return loadCards(cardList.getId());
     }
 
     /**
      * Load cards belong to a card list.
-     * @param cardListName is the name of a CardList object which cards belong to it are going to be loaded.
+     * @param cardListId is the name of a CardList object which cards belong to it are going to be loaded.
      * @return list of cards belong to a card list.
      */
-    public List<Card> loadCards(String cardListName){
+    public List<Card> loadCards(int cardListId){
         String[] col = {"_id", "title", "card_index", "description"};
-        Cursor cursor = db.query("CARD", col, "parent_list=?", new String[]{cardListName}, null, null, null);
-        Log.d("DBHadnler", String.format("LoadCardsOf %s", cardListName));
+        Cursor cursor = db.query("CARD", col, "parent_list=?", new String[]{String.valueOf(cardListId)}, null, null, null);
+        Log.d("DBHadnler", String.format("LoadCardsOf %s", cardListId));
 
         ArrayList<Card> cards = new ArrayList<Card>();
         do {
@@ -98,7 +98,7 @@ public class DBHandler {
             String title = cursor.getString(cursor.getColumnIndex("title"));
             int index = cursor.getInt(cursor.getColumnIndex("card_index"));
             String desc = cursor.getString(cursor.getColumnIndex("description"));
-            Log.d("DBHadnler", String.format("LoadCard-> { card_id: %d, title: %s, parent_list: %s, index: %d, description: %s }", id, title, cardListName, index, desc));
+            Log.d("DBHadnler", String.format("LoadCard-> { card_id: %d, title: %s, parent_list: %s, index: %d, description: %s }", id, title, cardListId, index, desc));
 
             Card card = new Card(title, desc, loadComments(id), id);
             cards.add(card);
@@ -113,7 +113,7 @@ public class DBHandler {
      * @return list of card lists.
      */
     public List<CardList> loadCardLists(){
-        String[] col = {"_name", "list_index"};
+        String[] col = {"_list_id", "name", "list_index"};
         Cursor cursor = db.query("CARD_LIST", col, null, null, null, null, null);
         Log.d("DBHandler", "LoadCardLists");
 
@@ -122,17 +122,20 @@ public class DBHandler {
             cursor.moveToNext();
             if(cursor.isAfterLast()) break;
 
-            String name = cursor.getString(cursor.getColumnIndex("_name"));
+            int listId = cursor.getInt(cursor.getColumnIndex("_list_id"));
+            String name = cursor.getString(cursor.getColumnIndex("name"));
             int index = cursor.getInt(cursor.getColumnIndex("list_index"));
-            Log.d("DBHadnler", String.format("LoadCardList-> { cardList_name: %s, index: %d }", name, index));
+            Log.d("DBHadnler", String.format("LoadCardList-> { list_id: %d, cardList_name: %s, index: %d }", listId, name, index));
 
-            CardList cardList = new CardList(name, loadCards(name));
+            CardList cardList = new CardList(name, listId, loadCards(listId));
             cardLists.add(cardList);
         } while (!cursor.isLast());
 
         return cardLists;
 
     }
+
+
 
     public void updateCard(int cardId, String col, String val){
         ContentValues contentValues = new ContentValues();
@@ -141,11 +144,12 @@ public class DBHandler {
         db.update("CARD",contentValues, "_id=?", new String[]{String.valueOf(cardId)});
     }
 
-    public void updateCardList(String cardListName, String col, String val){
+    public void updateCardList(int Id, String col, String val){
         ContentValues contentValues = new ContentValues();
         contentValues.put(col, val);
+        Log.d("UpdateCardList", String.format("id:%d %s %s", Id ,col, val));
 
-        db.update("CARD_LIST", contentValues, "_name=?", new String[]{cardListName});
+        db.update("CARD_LIST", contentValues, "_list_id=?", new String[]{String.valueOf(Id)});
     }
 
     public void deleteComment(long createTime){
@@ -156,16 +160,16 @@ public class DBHandler {
         db.delete("CARD", "_id=?", new String[]{String.valueOf(cardId)});
     }
 
-    public void deleteCardList(String cardListName){
-        db.delete("CARD_LIST", "_name=?", new String[]{cardListName});
+    public void deleteCardList(int listId){
+        db.delete("CARD_LIST", "_list_id=?", new String[]{String.valueOf(listId)});
     }
 
     public void deleteCommentsOf(int cardId){
         db.delete("COMMENT", "card_id=?", new String[]{String.valueOf(cardId)});
     }
 
-    public void deleteCardsOf(String cardListName){
-        db.delete("CARD", "parent_list=?", new String[]{cardListName});
+    public void deleteCardsOf(int listId){
+        db.delete("CARD", "parent_list=?", new String[]{String.valueOf(listId)});
     }
 
     public void insertComment(Card card, Comment comment){
@@ -188,37 +192,38 @@ public class DBHandler {
     }
 
     public void insertCard(CardList cardList, Card card){
-        insertCard(cardList.getName(), card);
+        insertCard(cardList.getId(), card);
     }
 
-    public void insertCard(String cardListName, Card card){
-        insertCard(cardListName, card.getId(), card.getName(), card.getDescription());
+    public void insertCard(int listId, Card card){
+        insertCard(listId, card.getId(), card.getName(), card.getDescription());
     }
 
-    public void insertCard(String cardListName, int cardId, String cardName, String description){
+    public void insertCard(int listId, int cardId, String cardName, String description){
         ContentValues vals = new ContentValues();
         vals.put("_id", cardId);
         vals.put("title", cardName);
         vals.put("description", description);
-        vals.put("parent_list", cardListName);
+        vals.put("parent_list", listId);
         vals.put("card_index", -1);
 
         db.insert("CARD", null, vals);
-        Log.d("DBHandler", String.format("insertCard-> { _id: %d, title: %s, description: %s, parent_list: %s, index: %d }", cardId, cardName, description, cardListName, -1));
+        Log.d("DBHandler", String.format("insertCard-> { _id: %d, title: %s, description: %s, parent_list: %s, index: %d }", cardId, cardName, description, cardId, -1));
 
     }
 
     public void insertCardList(CardList cardList){
-        insertCardList(cardList.getName());
+        insertCardList(cardList.getId(), cardList.getName());
     }
 
-    public void insertCardList(String cardListName){
+    public void insertCardList(int Id, String cardListId){
         ContentValues vals = new ContentValues();
-        vals.put("_name", cardListName);
+        vals.put("name", cardListId);
         vals.put("list_index", -1);
+        vals.put("_list_id", Id);
 
         db.insert("CARD_LIST", null, vals);
-        Log.d("DBHandler", String.format("insertCardList-> { name: %s, index: %d }" , cardListName, -1));
+        Log.d("DBHandler", String.format("insertCardList-> { name: %s, index: %d }" , cardListId, -1));
 
     }
 

@@ -13,13 +13,14 @@ public class DBHelper extends SQLiteOpenHelper{
 
 
     public DBHelper(Context context, DatabaseErrorHandler dbErrorHandler) {
-        super(context, "mini-trello-db", null, 3, dbErrorHandler);
+        super(context, "mini-trello-db", null, 11, dbErrorHandler);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS CARD_LIST( " +
-                        "_name text primary key not null," +
+                        "_list_id int primary key not null," +
+                        "name text not null," +
                         "list_index int not null" +
                         ");"
         );
@@ -27,10 +28,10 @@ public class DBHelper extends SQLiteOpenHelper{
         db.execSQL("CREATE TABLE IF NOT EXISTS CARD( " +
                         "_id int primary key not null," +
                         "title text not null," +
-                        "parent_list text not null," +
+                        "parent_list int not null," +
                         "card_index int not null," +
                         "description text," +
-                        "FOREIGN KEY(parent_list) REFERENCES CARD_LIST(_name)" +
+                        "FOREIGN KEY(parent_list) REFERENCES CARD_LIST(_list_id)" +
                         ");"
         );
         db.execSQL("CREATE TABLE IF NOT EXISTS COMMENT( " +
@@ -46,6 +47,8 @@ public class DBHelper extends SQLiteOpenHelper{
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS COMMENT");
+        db.execSQL("DROP TABLE IF exists card_list");
+        db.execSQL("DROP table if exists card");
         onCreate(db);
     }
 }
